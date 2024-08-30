@@ -82,22 +82,30 @@ class TripController extends Controller
 
         $trip->save();
 
-        return to_route('admin.trips.show', $trip->id)->with('type', 'success')->with('message', 'Nuovo viaggio creato con successo!');
+        return to_route('admin.trips.show', $trip->slug)->with('type', 'success')->with('message', 'Nuovo viaggio creato con successo!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Trip $trip)
+    public function show(string $slug)
     {
+        $trip = Trip::whereSlug($slug)->first();
+
+        if (!$trip) abort(404);
+
         return view('admin.trips.show', compact('trip'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Trip $trip)
+    public function edit(string $slug)
     {
+        $trip = Trip::whereSlug($slug)->first();
+
+        if (!$trip) abort(404);
+
         return view('admin.trips.edit', compact('trip'));
     }
 
