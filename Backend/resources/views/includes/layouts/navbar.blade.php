@@ -18,6 +18,9 @@
                     <a class="nav-link @if(Route::is('guest.home')) active @endif" href="{{url('/') }}">{{ __('Home') }}</a>
                 </li>
                 @auth
+                <li class="nav-item">
+                    <a class="nav-link @if(Request::is('admin/trips*')) active @endif" href="{{ route('admin.trips.index') }}">Viaggi</a>
+                </li>
                 @endauth
             </ul>
 
