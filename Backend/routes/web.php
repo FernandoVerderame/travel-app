@@ -2,10 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
-use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
-use App\Http\Controllers\Admin\TechnologyController as AdminTechnologyController;
-use App\Http\Controllers\Admin\TypeController as AdminTypeController;
-use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
+use App\Http\Controllers\Admin\TripController as AdminTripController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +23,9 @@ Route::get('/', GuestHomeController::class)->name('guest.home');
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     // Admin Home route
     Route::get('', AdminHomeController::class)->name('home');
+
+    // Trips Admin routes
+    Route::resource('trips', AdminTripController::class);
 });
 
 
