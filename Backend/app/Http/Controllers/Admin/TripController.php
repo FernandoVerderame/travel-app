@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Day;
 use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -82,6 +83,8 @@ class TripController extends Controller
 
         $trip->save();
 
+        $trip->generateDays($request->start_date, $request->end_date);
+
         return to_route('admin.trips.show', $trip->slug)->with('type', 'success')->with('message', 'Nuovo viaggio creato con successo!');
     }
 
@@ -94,7 +97,9 @@ class TripController extends Controller
 
         if (!$trip) abort(404);
 
-        return view('admin.trips.show', compact('trip'));
+        $days = Day::whereTripId($trip->id)->orderBy('date')->get();
+
+        return view('admin.trips.show', compact('trip', 'days'));
     }
 
     /**
@@ -153,6 +158,8 @@ class TripController extends Controller
         }
 
         $trip->update($data);
+
+        $trip->generateDays($request->start_date, $request->end_date, true);
 
         return to_route('admin.trips.show', $trip->id)->with('type', 'success')->with('message', 'Viaggio aggiornato con successo!');
     }
