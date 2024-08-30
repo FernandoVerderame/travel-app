@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\TripController as AdminTripController;
+use App\Http\Controllers\DayController as AdminDaysController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('trips', AdminTripController::class);
 });
 
+// Days Admin routes
+Route::resource('days', AdminDaysController::class);
 
 // Profile routes 
 
