@@ -7,6 +7,7 @@
     {{-- Header --}}
     <header class="d-flex align-items-center justify-content-between pb-4 mb-4 mt-3 border-bottom">
         <h1>Viaggi</h1>
+        <a href="{{ route('admin.trips.create') }}" class="btn btn-success"><i class="fa-solid fa-plus me-2"></i>Nuovo</a>
     </header>
 
     @forelse ($trips as $trip)
