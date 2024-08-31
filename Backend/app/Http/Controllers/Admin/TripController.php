@@ -34,12 +34,7 @@ class TripController extends Controller
     {
         $trip = new Trip();
 
-        $days = $trip->days->map(function ($day) {
-            $day->date = Carbon::parse($day->date);
-            return $day;
-        });
-
-        return view('admin.trips.create', compact('trip', 'days'));
+        return view('admin.trips.create', compact('trip'));
     }
 
     /**
@@ -103,7 +98,10 @@ class TripController extends Controller
 
         if (!$trip) abort(404);
 
-        $days = Day::whereTripId($trip->id)->orderBy('date')->get();
+        $days = $trip->days->map(function ($day) {
+            $day->date = Carbon::parse($day->date);
+            return $day;
+        });
 
         return view('admin.trips.show', compact('trip', 'days'));
     }
@@ -116,11 +114,6 @@ class TripController extends Controller
         $trip = Trip::whereSlug($slug)->first();
 
         if (!$trip) abort(404);
-
-        $days = $trip->days->map(function ($day) {
-            $day->date = Carbon::parse($day->date);
-            return $day;
-        });
 
         return view('admin.trips.edit', compact('trip', 'days'));
     }

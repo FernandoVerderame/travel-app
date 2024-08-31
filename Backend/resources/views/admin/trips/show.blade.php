@@ -12,7 +12,19 @@
 
   <!-- Card body -->
   <div class="card-body">
-    
+    <div class="col-12">
+        <div class="mb-4">
+            <h3>Itinerario</h3>
+            <div id="days-container">
+                @foreach($days as $day)
+                    <div class="day-entry mb-3">
+                        <h5 for="day_date_{{ $day->id }}" class="form-label">Giorno {{ $day->number }} - {{ old('days.' . $day->id . '.date', $day->date->format('d-m-Y')) }}</h5>
+                        <a href="" class="btn btn-sm btn-success text-white"><i class="fa-solid fa-plus me-1"></i>Tappa</a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
   </div>
 
   <!-- Card footer -->
@@ -20,12 +32,12 @@
     <a href="{{ route('admin.trips.index') }}" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left me-2"></i>Indietro</a>
     
     <div class="d-flex gap-2">
-        <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-warning text-white">Modifica</a>
-        <form action="{{ route('admin.trips.destroy', $trip->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-trip="{{ $trip->title }}">
+        {{-- <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-warning text-white">Modifica</a> --}}
+        {{-- <form action="{{ route('admin.trips.destroy', $trip->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-trip="{{ $trip->title }}">
           @csrf
           @method('DELETE')
           <button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can me-1"></i>Elimina</button>
-        </form>
+        </form> --}}
     </div>
   </div>
 </div>
