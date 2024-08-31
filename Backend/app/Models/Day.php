@@ -22,6 +22,11 @@ class Day extends Model
         return $this->belongsTo(Trip::class);
     }
 
+    public function stops()
+    {
+        return $this->hasMany(Stop::class);
+    }
+
     protected function title(): Attribute
     {
         return Attribute::make(
