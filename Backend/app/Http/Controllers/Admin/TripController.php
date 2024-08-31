@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Day;
 use App\Models\Trip;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -33,7 +34,12 @@ class TripController extends Controller
     {
         $trip = new Trip();
 
-        return view('admin.trips.create', compact('trip'));
+        $days = $trip->days->map(function ($day) {
+            $day->date = Carbon::parse($day->date);
+            return $day;
+        });
+
+        return view('admin.trips.create', compact('trip', 'days'));
     }
 
     /**
@@ -111,7 +117,12 @@ class TripController extends Controller
 
         if (!$trip) abort(404);
 
-        return view('admin.trips.edit', compact('trip'));
+        $days = $trip->days->map(function ($day) {
+            $day->date = Carbon::parse($day->date);
+            return $day;
+        });
+
+        return view('admin.trips.edit', compact('trip', 'days'));
     }
 
     /**

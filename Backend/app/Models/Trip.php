@@ -68,6 +68,11 @@ class Trip extends Model
      */
     private function updateDays($start_date, $end_date)
     {
+
+        // Assicurati che start_date e end_date siano oggetti Carbon
+        $start_date = Carbon::parse($start_date);
+        $end_date = Carbon::parse($end_date);
+
         // Elimina giorni non necessari
         Day::where('trip_id', $this->id)
             ->where(function ($query) use ($start_date, $end_date) {

@@ -64,6 +64,21 @@
             </div>
         </div>
 
+        {{-- <div class="col-12">
+            <div class="mb-4">
+                <h3>Days</h3>
+                <div id="days-container">
+                    @foreach($days as $day)
+                        <div class="day-entry mb-3">
+                            <label for="day_date_{{ $day->id }}" class="form-label">Giorno {{ $day->number }}</label>
+                            <input type="date" class="form-control" id="day_date_{{ $day->id }}" name="days[{{ $day->id }}][date]" value="{{ old('days.' . $day->id . '.date', $day->date->format('Y-m-d')) }}" required>
+                            <input type="hidden" name="days[{{ $day->id }}][id]" value="{{ $day->id }}">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div> --}}
+
         <div class="col-5">
             <div class="mb-4">
                 <label for="image" class="form-label h4">Immagine</label>
