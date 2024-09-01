@@ -12,9 +12,11 @@ class Day extends Model
     use HasFactory;
 
     protected $fillable = [
-        'trip_id',
+        'title',
+        'slug',
         'number',
         'date',
+        'trip_id'
     ];
 
     public function trip()
@@ -25,15 +27,5 @@ class Day extends Model
     public function stops()
     {
         return $this->hasMany(Stop::class);
-    }
-
-    protected function title(): Attribute
-    {
-        return Attribute::make(
-            set: fn(string $value) => [
-                'title' => $value,
-                'slug' => Str::slug($value)
-            ]
-        );
     }
 }
