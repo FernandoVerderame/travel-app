@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -55,10 +56,12 @@ class Trip extends Model
 
         for ($i = 0; $i < $days; $i++) {
             $date = $start_date->copy()->addDays($i);
+            $title = 'Giorno ' . ($i + 1);
+            $slug = Str::slug($title);
 
             Day::updateOrCreate(
                 ['trip_id' => $this->id, 'date' => $date],
-                ['number' => $i + 1]
+                ['title' => $title, 'slug' => $slug, 'number' => $i + 1]
             );
         }
     }
