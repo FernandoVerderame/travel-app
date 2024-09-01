@@ -18,7 +18,7 @@ deleteForms.forEach(form => {
         confirmationButton.innerText = 'Conferma Eliminazione';
         confirmationButton.className = 'btn btn-danger';
         modalTitle.innerText = 'Elimina viaggio';
-        modalBody.innerText = `Sei sicuro di voler cancellare ${tripTitle}?`;
+        modalBody.innerHTML = `Sei sicuro di voler cancellare <strong>${tripTitle}</strong>?`;
     })
 })
 
