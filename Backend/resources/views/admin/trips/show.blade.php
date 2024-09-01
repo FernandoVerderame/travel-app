@@ -52,6 +52,9 @@
                                                             </div>
                                                         </li>
                                                     </ul>
+                                                    <div class="stop-btns mt-3">
+                                                        <a href="{{ route('admin.stops.edit', ['trip' => $trip->slug, 'day' => $day->slug, 'stop' => $stop->slug]) }}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pencil"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

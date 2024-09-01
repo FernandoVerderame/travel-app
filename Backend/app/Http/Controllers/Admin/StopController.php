@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class StopController extends Controller
 {
@@ -102,17 +103,69 @@ class StopController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Stop $stop)
+    public function edit($trip, $day, $stop)
     {
-        //
+        $trip = Trip::where('slug', $trip)->firstOrFail();
+        $day = Day::where('slug', $day)->firstOrFail();
+        $stop = Stop::where('slug', $stop)->firstOrFail();
+
+        return view('admin.stops.edit', compact('trip', 'day', 'stop'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Stop $stop)
+    public function update(Request $request, $trip, $day, $stop)
     {
-        //
+        $trip = Trip::where('slug', $trip)->firstOrFail();
+        $day = Day::where('slug', $day)->firstOrFail();
+        $stop = Stop::findOrFail($stop);
+
+        $request->validate([
+            'title' => ['required', 'string', 'min:5', 'max:50', Rule::unique('stops')->ignore($stop->id)],
+            'image' => 'nullable|image|mimes:png,jpg,jpeg',
+            'foods' => 'nullable|string',
+            'address' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'day_id' => 'required|exists:days,id'
+        ], [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.min' => 'Il titolo deve essere di almeno :min caratteri',
+            'title.max' => 'Il titolo deve essere di un massimo di :max caratteri',
+            'title.unique' => 'Non possono esserci due tappe con lo stesso titolo',
+            'image.image' => 'Il file aggiunto non è un\'immagine',
+            'image.mimes' => 'Le estensioni valide sono .png, .jpg, .jpeg',
+            'foods.string' => 'I piatti tipici devono essere una stringa di testo',
+            'address.required' => 'L\'indirizzo è obbligatorio',
+            'address.string' => 'L\'indirizzo deve essere una stringa di testo',
+            'latitude.required' => 'La latitudine è obbligatoria',
+            'latitude.numeric' => 'La latitudine deve essere un numero valido',
+            'longitude.required' => 'La longitudine è obbligatoria',
+            'longitude.numeric' => 'La longitudine deve essere un numero valido',
+            'day_id.required' => 'Il giorno è obbligatorio',
+            'day_id.exists' => 'Il giorno selezionato non esiste'
+        ]);
+
+        $data = $request->all();
+
+        $stop->fill($data);
+        $stop->slug = Str::slug($stop->title);
+
+        // New file check
+        if ($request->hasFile('image')) {
+            if ($stop->image) {
+                Storage::delete($stop->image);
+            }
+
+            $extension = $data['image']->extension();
+            $img_url = Storage::putFileAs('stop_images', $data['image'], "$stop->slug.$extension");
+            $stop->image = $img_url;
+        }
+
+        $stop->save();
+
+        return to_route('admin.trips.show', $trip->slug)->with('type', 'success')->with('message', 'Tappa aggiornata con successo!');
     }
 
     /**
