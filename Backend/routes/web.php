@@ -30,9 +30,13 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('days', AdminDayController::class);
 
     // Stops Admin Routes
-    Route::resource('stops', AdminStopController::class)->except('create');
+    Route::resource('stops', AdminStopController::class)->except('create', 'edit', 'update');
     // Route for creating a Stop within a Trip
     Route::get('trips/{trip}/days/{day}/stops/create', [AdminStopController::class, 'create'])->name('stops.create');
+    // Route for updating a Stop
+    Route::get('trips/{trip}/days/{day}/stops/{stop}/edit', [AdminStopController::class, 'edit'])->name('stops.edit');
+    // Route for updating a Stop within a Trip
+    Route::put('trips/{trip}/days/{day}/stops/{stop}', [AdminStopController::class, 'update'])->name('stops.update');
 
     // Trips Admin routes
     Route::resource('trips', AdminTripController::class);
