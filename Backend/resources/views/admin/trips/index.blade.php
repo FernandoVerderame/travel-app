@@ -25,7 +25,7 @@
                 </div>
             @endif
 
-            <div class="col">
+            <div class="col-9">
                 <h5 class="card-title mb-2">{{ $trip->title }}</h5>
                 <h6 class="card-subtitle fw-normal mb-1 text-body-secondary">
                     Partenza: {{ $trip->getFormattedDate('start_date', 'd-m-Y') }}
@@ -33,6 +33,18 @@
                 <h6 class="card-subtitle fw-normal text-body-secondary">
                     Ritorno: {{ $trip->getFormattedDate('end_date', 'd-m-Y') }}
                 </h6>
+            </div>
+
+            <div class="col-12">
+                <div class="d-flex justify-content-end">
+                    <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-sm btn-warning text-white">Modifica</a>
+
+                    <form action="{{ route('admin.trips.destroy', $trip->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-trip="{{ $trip->title }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger ms-2"><i class="fa-regular fa-trash-can me-1"></i>Elimina</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -44,5 +56,5 @@
 @endsection
 
 @section('scripts')
-
+    @vite('resources/js/delete_confirmation.js')
 @endsection
