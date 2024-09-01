@@ -39,8 +39,12 @@ class StopController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $trip, $day)
     {
+        // Recupera il viaggio e il giorno
+        $trip = Trip::where('slug', $trip)->firstOrFail();
+        $day = Day::where('slug', $day)->where('trip_id', $trip->id)->firstOrFail();
+
         $request->validate([
             'title' => 'required|string|min:5|max:50|unique:stops',
             'image' => 'nullable|image|mimes:png,jpg,jpeg',
@@ -72,6 +76,8 @@ class StopController extends Controller
         $stop = new Stop();
 
         $stop->fill($data);
+        $stop->day_id = $day->id;
+
         $stop->slug = Str::slug($stop->title);
 
         // New file check
@@ -83,11 +89,7 @@ class StopController extends Controller
             $stop->image = $img_url;
         }
 
-        $stop->day_id = $request->input('day_id');
-
         $stop->save();
-
-        $trip = Trip::findOrFail($request->input('trip_id'));
 
         return to_route('admin.trips.show', $trip->slug)->with('type', 'success')->with('message', 'Nuovo tappa creata con successo!');
     }

@@ -2,7 +2,7 @@
     <form action="{{ route('admin.stops.update', [$trip->slug, $day->slug, $stop->id]) }}" method="POST" enctype="multipart/form-data" novalidate>
         @method('PUT')
 @else 
-    <form action="{{ route('admin.stops.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+    <form action="{{ route('admin.stops.store', [$trip->slug, $day->slug]) }}" method="POST" enctype="multipart/form-data" novalidate>
 @endif
 
     @csrf
