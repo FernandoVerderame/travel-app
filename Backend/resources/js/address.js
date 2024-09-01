@@ -68,7 +68,7 @@ const fetchApi = query => {
         /* OGGETTO CHE CONTIENE I PARAMETRI DI BASE DELLA CHIMATA API */
         params: {
             address: query,
-            key: 'AIzaSyCzMQht7sb1_MESzHv_x6Kn9BOIPHoR5gc' // Sostituisci con la tua chiave API di Google Maps
+            key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY // Sostituisci con la tua chiave API di Google Maps
         },
 
         /* TRANSFORMAZIONE DELLA RICHIESTA PER SANITIZZARE GLI HEADERS */
