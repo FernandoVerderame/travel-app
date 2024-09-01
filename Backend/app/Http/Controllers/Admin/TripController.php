@@ -100,6 +100,7 @@ class TripController extends Controller
 
         $days = $trip->days->map(function ($day) {
             $day->date = Carbon::parse($day->date);
+            $day->slug = Str::slug('Giorno ' . $day->number);
             return $day;
         });
 
