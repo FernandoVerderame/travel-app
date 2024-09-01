@@ -150,6 +150,11 @@ class StopController extends Controller
 
         $data = $request->all();
 
+        // Assicurati che day_id sia mantenuto se non modificato
+        if (!isset($data['day_id'])) {
+            $data['day_id'] = $stop->day_id;
+        }
+
         $stop->fill($data);
         $stop->slug = Str::slug($stop->title);
 
