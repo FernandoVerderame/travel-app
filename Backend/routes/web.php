@@ -32,7 +32,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     // Stops Admin Routes
     Route::resource('stops', AdminStopController::class)->except('create');
     // Route for creating a Stop within a Trip
-    Route::get('trips/{trip}/stops/create', [AdminStopController::class, 'create'])->name('stops.create');
+    Route::get('trips/{trip}/days/{day}/stops/create', [AdminStopController::class, 'create'])->name('stops.create');
 
     // Trips Admin routes
     Route::resource('trips', AdminTripController::class);
