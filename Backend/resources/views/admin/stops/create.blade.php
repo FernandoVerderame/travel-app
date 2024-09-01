@@ -18,6 +18,7 @@
     @csrf
 
     <input type="hidden" name="trip_id" value="{{ $trip->id }}">
+    <input type="hidden" name="day_id" value="{{ $day->id }}">
 
         <div class="row">
 
