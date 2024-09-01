@@ -25,8 +25,11 @@ class StopController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Trip $trip, Day $day)
+    public function create($trip, $day)
     {
+        $trip = Trip::where('slug', $trip)->firstOrFail();
+        $day = Day::where('slug', $day)->firstOrFail();
+
         $stop = new Stop();
 
         return view('admin.stops.create', compact('stop', 'trip', 'day'));
@@ -38,15 +41,13 @@ class StopController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            [
-                'title' => 'required|string|min:5|max:50|unique:stops',
-                'image' => 'nullable|image|mimes:png,jpg,jpeg',
-                'foods' => 'nullable|string',
-                'address' => 'required|string',
-                'latitude' => 'required|numeric',
-                'longitude' => 'required|numeric',
-                'day_id' => 'required|exists:days,id'
-            ]
+            'title' => 'required|string|min:5|max:50|unique:stops',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg',
+            'foods' => 'nullable|string',
+            'address' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'day_id' => 'required|exists:days,id'
         ], [
             'title.required' => 'Il titolo è obbligatorio',
             'title.min' => 'Il titolo deve essere di almeno :min caratteri',
