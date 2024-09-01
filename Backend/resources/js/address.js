@@ -1,5 +1,4 @@
 /* RECUPERO ELEMENTI */
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
 /* INPUT DI RICERCA */
 const inputAddressSearch = document.getElementById('search-address');
@@ -15,6 +14,13 @@ const saveButton = document.getElementById('save-btn');
 
 /* RECUPER URL DAL SITO TOMTOM */
 const baseUri = 'https://maps.googleapis.com/maps/api/geocode/json';
+
+/* FUNZIONE PER SANITIZZARE GLI HEADERS */
+const sanitizeHeaders = (data, headers) => {
+    // Rimuove l'header "X-Requested-With"
+    delete headers.common["X-Requested-With"];
+    return data;
+};
 
 
 /* FUNZIONE A CUI PASSO COME PARAMENTRO IL VALORE DELL'INDIREZZO SCELTO DALL'UTENTE */
@@ -57,11 +63,18 @@ const fetchApi = query => {
     }
 
     /* CHIAMATA API PASSANDO URL + INDIRIZZO + TRASFORMO LA RISPOSTA IN JSON */
-    axios.get(proxyUrl, baseUri, {
+    axios.get(baseUri, {
+
+        /* OGGETTO CHE CONTIENE I PARAMETRI DI BASE DELLA CHIMATA API */
         params: {
             address: query,
-            key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY // API KEY
-        }
+            key: 'AIzaSyCzMQht7sb1_MESzHv_x6Kn9BOIPHoR5gc' // Sostituisci con la tua chiave API di Google Maps
+        },
+
+        /* TRANSFORMAZIONE DELLA RICHIESTA PER SANITIZZARE GLI HEADERS */
+        transformRequest: sanitizeHeaders
+
+        /* RISPOSTA DELL'API */
     }).then(res => {
 
         /* ESTRAGGO DA RES.DATA IL RESULTS */
