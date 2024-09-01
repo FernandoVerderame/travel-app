@@ -12,6 +12,10 @@ td {
     vertical-align: middle;
 }
 
+ul {
+    list-style: none;
+}
+
 .star-rating {
     font-size: 0;
     direction: rtl;
@@ -33,6 +37,16 @@ td {
 .star-rating label:hover,
 .star-rating label:hover~label {
     color: #f5b301;
+}
+
+.star-rating .fa-star.filled {
+    color: #f5b301;
+    /* colore giallo per le stelle piene */
+}
+
+.star-rating .fa-star.empty {
+    color: #ddd;
+    /* colore per le stelle vuote */
 }
 
 .input-container {

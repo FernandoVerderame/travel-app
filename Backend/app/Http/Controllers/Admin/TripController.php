@@ -94,7 +94,7 @@ class TripController extends Controller
      */
     public function show(string $slug)
     {
-        $trip = Trip::whereSlug($slug)->first();
+        $trip = Trip::whereSlug($slug)->with('days.stops')->first();
 
         if (!$trip) abort(404);
 
