@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('stops', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
+            $table->string('title')->unique();
+            $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->text('foods')->nullable();
             $table->string('address');
