@@ -116,7 +116,7 @@ class TripController extends Controller
 
         if (!$trip) abort(404);
 
-        return view('admin.trips.edit', compact('trip', 'days'));
+        return view('admin.trips.edit', compact('trip'));
     }
 
     /**
@@ -166,7 +166,7 @@ class TripController extends Controller
 
         $trip->generateDays($request->start_date, $request->end_date, true);
 
-        return to_route('admin.trips.show', $trip->id)->with('type', 'success')->with('message', 'Viaggio aggiornato con successo!');
+        return to_route('admin.trips.show', $trip->slug)->with('type', 'success')->with('message', 'Viaggio aggiornato con successo!');
     }
 
     /**
@@ -176,6 +176,6 @@ class TripController extends Controller
     {
         $trip->delete();
 
-        return to_route('admin.trips.index')->with('message', "{$trip->title} eliminato con successo!");
+        return to_route('admin.trips.index')->with('type', 'danger')->with('type', 'message', "{$trip->title} eliminato con successo!");
     }
 }
