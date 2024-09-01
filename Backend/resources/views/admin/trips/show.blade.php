@@ -20,7 +20,7 @@
                     <div class="card p-2 day-entry mb-3">
                         <h4 for="day_date_{{ $day->id }}" class="form-label fs-6">Giorno {{ $day->number }}: Titolo</h4>
                         <h5 class="fs-6">Data: {{ old('days.' . $day->id . '.date', $day->date->format('d-m-Y')) }}</h5>
-                        <a href="{{route('admin.stops.create', $trip->id)}}" class="btn btn-sm btn-success text-white"><i class="fa-solid fa-plus me-1"></i>Tappa</a>
+                        <a href="{{ route('admin.stops.create', ['trip' => $trip->id, 'day' => $day->id]) }}" class="btn btn-sm btn-success text-white"><i class="fa-solid fa-plus me-1"></i>Tappa</a>
                     </div>
                 @endforeach
             </div>
