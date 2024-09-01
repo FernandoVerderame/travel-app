@@ -52,8 +52,14 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    <div class="stop-btns mt-3">
+                                                    <div class="stop-btns d-flex justify-content-between mt-3">
                                                         <a href="{{ route('admin.stops.edit', ['trip' => $trip->slug, 'day' => $day->slug, 'stop' => $stop->slug]) }}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pencil"></i></a>
+
+                                                        <form action="{{ route('admin.stops.destroy', $stop->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-stop="{{ $stop->title }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa-regular fa-trash-can me-1"></i>Elimina</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,4 +86,9 @@
 <div class="d-flex justify-content-between">
   <a href="{{ route('admin.trips.index') }}" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left me-2"></i>Indietro</a>
 </div>
+@endsection
+
+
+@section('scripts')
+    @vite('resources/js/delete_confirmation.js')
 @endsection

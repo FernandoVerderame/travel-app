@@ -179,6 +179,13 @@ class StopController extends Controller
      */
     public function destroy(Stop $stop)
     {
-        //
+        // Recupera il Trip associato tramite il Day
+        $trip = $stop->day->trip;
+
+        if ($stop->image) Storage::delete($stop->image);
+
+        $stop->delete();
+
+        return to_route('admin.trips.show', $trip->slug)->with('type', 'danger')->with('type', 'message', "Tappa {$stop->title} eliminata con successo!");
     }
 }
