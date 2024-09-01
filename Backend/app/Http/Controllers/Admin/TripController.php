@@ -174,6 +174,21 @@ class TripController extends Controller
      */
     public function destroy(Trip $trip)
     {
+        // Recupera tutte le tappe (stops) attraverso i giorni associati al viaggio
+        $days = $trip->days;
+        foreach ($days as $day) {
+            foreach ($day->stops as $stop) {
+                // Elimina l'immagine della stop se esiste
+                if ($stop->image) {
+                    Storage::delete($stop->image);
+                }
+                // Elimina la stop
+                $stop->delete();
+            }
+        }
+
+        if ($trip->image) Storage::delete($trip->image);
+
         $trip->delete();
 
         return to_route('admin.trips.index')->with('type', 'danger')->with('type', 'message', "{$trip->title} eliminato con successo!");
