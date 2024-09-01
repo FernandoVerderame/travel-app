@@ -105,11 +105,20 @@
             <div class="mb-4">
                 <label for="rating" class="form-label h4">Votazione</label>
                 <div id="star-rating" class="star-rating">
-                    <input type="radio" name="rating" id="rating-5" value="5"><label for="rating-5" title="5 stars"><i class="fa-solid fa-star fs-5"></i></label>
-                    <input type="radio" name="rating" id="rating-4" value="4"><label for="rating-4" title="4 stars"><i class="fa-solid fa-star fs-5"></i></label>
-                    <input type="radio" name="rating" id="rating-3" value="3"><label for="rating-3" title="3 stars"><i class="fa-solid fa-star fs-5"></i></label>
-                    <input type="radio" name="rating" id="rating-2" value="2"><label for="rating-2" title="2 stars"><i class="fa-solid fa-star fs-5"></i></label>
-                    <input type="radio" name="rating" id="rating-1" value="1"><label for="rating-1" title="1 star"><i class="fa-solid fa-star fs-5"></i></label>
+                    <input type="radio" name="rating" id="rating-5" value="5" {{ old('rating', $stop->rating) == 5 ? 'checked' : '' }}>
+                    <label for="rating-5" title="5 stars"><i class="fa-solid fa-star fs-5"></i></label>
+                
+                    <input type="radio" name="rating" id="rating-4" value="4" {{ old('rating', $stop->rating) == 4 ? 'checked' : '' }}>
+                    <label for="rating-4" title="4 stars"><i class="fa-solid fa-star fs-5"></i></label>
+                
+                    <input type="radio" name="rating" id="rating-3" value="3" {{ old('rating', $stop->rating) == 3 ? 'checked' : '' }}>
+                    <label for="rating-3" title="3 stars"><i class="fa-solid fa-star fs-5"></i></label>
+                
+                    <input type="radio" name="rating" id="rating-2" value="2" {{ old('rating', $stop->rating) == 2 ? 'checked' : '' }}>
+                    <label for="rating-2" title="2 stars"><i class="fa-solid fa-star fs-5"></i></label>
+                
+                    <input type="radio" name="rating" id="rating-1" value="1" {{ old('rating', $stop->rating) == 1 ? 'checked' : '' }}>
+                    <label for="rating-1" title="1 star"><i class="fa-solid fa-star fs-5"></i></label>
                 </div>
                 @error('rating')
                 <div class="invalid-feedback">
