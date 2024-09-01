@@ -117,11 +117,10 @@ class StopController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $trip, $day, $stop)
+    public function update(Request $request, $trip, $day, Stop $stop)
     {
         $trip = Trip::where('slug', $trip)->firstOrFail();
-        $day = Day::where('slug', $day)->firstOrFail();
-        $stop = Stop::findOrFail($stop);
+        $day = Day::where('slug', $day)->where('trip_id', $trip->id)->firstOrFail();
 
         $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:50', Rule::unique('stops')->ignore($stop->id)],
