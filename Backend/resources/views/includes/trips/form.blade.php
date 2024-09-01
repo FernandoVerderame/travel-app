@@ -35,7 +35,9 @@
         <div class="col-6">
             <div class="mb-4">
                 <label for="start_date" class="form-label h4">Data di partenza</label>
-                <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @elseif(old('start_date', '')) is-valid @enderror" value="{{ old('start_date', $trip->start_date) }}" required>
+                <input type="date" name="start_date" id="start_date" 
+               class="form-control @error('start_date') is-invalid @enderror"
+               value="{{ old('start_date', $trip->start_date ? $trip->start_date->format('Y-m-d') : null) }}" required>
                 @error('start_date')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -51,7 +53,9 @@
         <div class="col-6">
             <div class="mb-4">
                 <label for="end_date" class="form-label h4">Data di ritorno</label>
-                <input type="date" name="end_date" id="end_date" class="form-control @error('end_date') is-invalid @elseif(old('end_date', '')) is-valid @enderror" value="{{ old('end_date', $trip->end_date) }}" required>
+                <input type="date" name="end_date" id="end_date" 
+               class="form-control @error('end_date') is-invalid @enderror"
+               value="{{ old('end_date', $trip->end_date ? $trip->end_date->format('Y-m-d') : null) }}" required>
                 @error('end_date')
                     <div class="invalid-feedback">
                         {{ $message }}
