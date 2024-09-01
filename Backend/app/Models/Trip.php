@@ -13,6 +13,12 @@ class Trip extends Model
 
     protected $fillable = ['title', 'slug', 'start_date', 'end_date'];
 
+    // Cast per date
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -93,6 +99,15 @@ class Trip extends Model
         if ($end_date > $this->end_date) {
             // Nuovo ritorno successivo
             $this->createDays($this->end_date->copy()->addDays(1), $end_date);
+        } else {
+            // Aggiungi nuovi giorni se l'intervallo di date è stato esteso
+            $existing_days_count = $this->days()->count();
+            $expected_days_count = $start_date->diffInDays($end_date) + 1;
+
+            if ($expected_days_count > $existing_days_count) {
+                // Aggiungi solo i giorni mancanti
+                $this->createDays($this->start_date->copy()->addDays($existing_days_count), $end_date);
+            }
         }
     }
 }
