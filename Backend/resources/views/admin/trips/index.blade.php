@@ -14,7 +14,7 @@
     <div class="card my-5">
         <div class="card-header d-flex align-items-center justify-content-between">
         <h3 class="m-0">{{ $trip->title }}</h3>    
-        <a href="{{ route('admin.trips.show', $trip->slug) }}" class="btn btn-sm btn-primary">Info</a>
+        <a href="{{ route('admin.trips.show', $trip->slug) }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-rectangle-list me-1"></i> Info</a>
     </div>
     <div class="card-body">
         <div class="row">
@@ -39,7 +39,7 @@
 
             <div class="col-12">
                 <div class="d-flex justify-content-between">
-                    <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i> Modifica</a>
+                    <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square me-1"></i> Modifica</a>
 
                     <form action="{{ route('admin.trips.destroy', $trip->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-trip="{{ $trip->title }}">
                         @csrf
