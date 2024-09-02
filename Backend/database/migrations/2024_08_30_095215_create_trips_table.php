@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title', 50)->unique();
             $table->string('slug')->unique();
             $table->string('image')->nullable();
+            $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();

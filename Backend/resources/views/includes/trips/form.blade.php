@@ -68,20 +68,21 @@
             </div>
         </div>
 
-        {{-- <div class="col-12">
+        <div class="col-12">
             <div class="mb-4">
-                <h3>Days</h3>
-                <div id="days-container">
-                    @foreach($days as $day)
-                        <div class="day-entry mb-3">
-                            <label for="day_date_{{ $day->id }}" class="form-label">Giorno {{ $day->number }}</label>
-                            <input type="date" class="form-control" id="day_date_{{ $day->id }}" name="days[{{ $day->id }}][date]" value="{{ old('days.' . $day->id . '.date', $day->date->format('Y-m-d')) }}" required>
-                            <input type="hidden" name="days[{{ $day->id }}][id]" value="{{ $day->id }}">
-                        </div>
-                    @endforeach
-                </div>
+                <label for="description" class="form-label h4">Descrizione</label>
+                <textarea type="text" name="description" id="description" class="form-control @error('description') is-invalid @elseif(old('description', '')) is-valid @enderror" placeholder="Descrizione del viaggio..." rows="8" required>{{ old('description', $trip->description) }}</textarea>
+                @error('description')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @else 
+                    <div class="form-text">
+                        Add project's description
+                    </div>
+                @enderror
             </div>
-        </div> --}}
+        </div>
 
         <div class="col-5">
             <div class="mb-4">

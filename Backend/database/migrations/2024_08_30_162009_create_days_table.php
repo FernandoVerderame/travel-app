@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->string('number');
-            $table->string('description')->nullable();
             $table->date('date');
             $table->foreignIdFor(Trip::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
