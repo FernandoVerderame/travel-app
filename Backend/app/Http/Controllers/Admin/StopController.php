@@ -186,6 +186,6 @@ class StopController extends Controller
 
         $stop->delete();
 
-        return to_route('admin.trips.show', $trip->slug)->with('type', 'danger')->with('type', 'message', "Tappa {$stop->title} eliminata con successo!");
+        return to_route('admin.trips.show', $trip->slug)->with('type', 'danger')->with('message', "Tappa {$stop->title} eliminata con successo!");
     }
 }
