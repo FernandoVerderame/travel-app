@@ -1,3 +1,13 @@
+function formatDate(dateString) {
+    const date = new Date(dateString);
+
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
 let map;
 
 function initMap() {
@@ -20,10 +30,13 @@ function initMap() {
         });
 
         marker.addListener('click', function () {
+            const formattedDate = formatDate(location.date);
+
             const content = `
                 <div class="custom-info-window">
-                    <h3 class="fs-5">${location.title}</h3>
-                    <img src="https://media.istockphoto.com/id/1336469257/it/foto/famoso-cartello-di-las-vegas-allingresso-della-citt%C3%A0-dettaglio-di-notte.jpg?s=612x612&w=0&k=20&c=1bnGBcd8j8E4FEM-3_jhCIqfbgwhU8SF1ywc-njvhVM=" alt="Location Image" style="width: 200px; height: auto;">
+                    <h3 class="fs-5 m-0">${location.title}</h3>
+                    <p class="mb-1 mt-0">${formattedDate}</p>
+                    <img src="https://placehold.co/160x120" alt="Location Image">
                 </div>
             `;
             infowindow.setContent(content);

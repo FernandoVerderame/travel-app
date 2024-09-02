@@ -11,7 +11,10 @@ class HomeController extends Controller
     public function __invoke()
     {
         // Recupera tutte le tappe dal database
-        $locations = DB::table('stops')->select('latitude', 'longitude', 'title', 'image')->get();
+        $locations = DB::table('stops')
+            ->join('days', 'stops.day_id', '=', 'days.id')
+            ->select('stops.latitude', 'stops.longitude', 'stops.title', 'stops.image', 'days.date')
+            ->get();
 
         return view('admin.home', compact('locations'));
     }
