@@ -28,6 +28,6 @@
 
     <!-- API Google Maps -->
     <script defer
-        src="https://maps.googleapis.com/maps/api/js?key={{ env('VITE_GOOGLE_MAPS_API_KEY') }}&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('VITE_GOOGLE_MAPS_API_KEY') }}&callback=initMap&libraries=marker">
     </script>
 @endsection
