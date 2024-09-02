@@ -55,7 +55,7 @@
                                                     <div class="stop-btns d-flex justify-content-between mt-3">
                                                         <a href="{{ route('admin.stops.edit', ['trip' => $trip->slug, 'day' => $day->slug, 'stop' => $stop->slug]) }}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></a>
 
-                                                        <form action="{{ route('admin.stops.destroy', $stop->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-stop="{{ $stop->title }}">
+                                                        <form action="{{ route('admin.stops.destroy', $stop->id) }}" method="POST" class="delete-form" data-type="stop" data-bs-toggle="modal" data-bs-target="#modal" data-stop="{{ $stop->title }}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-sm btn-danger"><i class="fa-regular fa-trash-can"></i></button>

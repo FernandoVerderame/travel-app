@@ -41,7 +41,7 @@
                 <div class="d-flex justify-content-between">
                     <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square me-1"></i> Modifica</a>
 
-                    <form action="{{ route('admin.trips.destroy', $trip->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-trip="{{ $trip->title }}">
+                    <form action="{{ route('admin.trips.destroy', $trip->id) }}" method="POST" class="delete-form" data-type="trip" data-bs-toggle="modal" data-bs-target="#modal" data-trip="{{ $trip->title }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger ms-2"><i class="fa-regular fa-trash-can me-1"></i>Elimina</button>

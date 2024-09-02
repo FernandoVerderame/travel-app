@@ -12,13 +12,21 @@ deleteForms.forEach(form => {
 
         activeForm = form;
 
+        const type = form.dataset.type;
         const tripTitle = form.dataset.trip;
+        const stopTitle = form.dataset.stop;
 
-        // Insert contents
+        if (type === 'trip') {
+            modalTitle.innerText = 'Elimina viaggio';
+            modalBody.innerHTML = `Sei sicuro di voler cancellare il viaggio <strong>${tripTitle}</strong>?`;
+        } else if (type === 'stop') {
+            modalTitle.innerText = 'Elimina tappa';
+            modalBody.innerHTML = `Sei sicuro di voler cancellare la tappa <strong>${stopTitle}</strong>?`;
+        }
+
+        // Configura il pulsante di conferma
         confirmationButton.innerText = 'Conferma Eliminazione';
         confirmationButton.className = 'btn btn-danger';
-        modalTitle.innerText = 'Elimina viaggio';
-        modalBody.innerHTML = `Sei sicuro di voler cancellare <strong>${tripTitle}</strong>?`;
     })
 })
 
