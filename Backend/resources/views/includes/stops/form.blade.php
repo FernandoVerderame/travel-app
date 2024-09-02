@@ -59,10 +59,10 @@
             </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-6">
             <div class="mb-4">
                 <label for="foods" class="form-label h4">Piatti Tipici</label>
-                <textarea type="text" name="foods" id="foods" class="form-control @error('foods') is-invalid @elseif(old('foods', '')) is-valid @enderror" placeholder="Carbonara, parmigiana..." rows="3" required>{{ old('foods', $stop->foods) }}</textarea>
+                <textarea type="text" name="foods" id="foods" class="form-control @error('foods') is-invalid @elseif(old('foods', '')) is-valid @enderror" placeholder="Ex.: Carbonara, parmigiana..." rows="5" required>{{ old('foods', $stop->foods) }}</textarea>
                 @error('foods')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -77,12 +77,28 @@
 
         <div class="col-6">
             <div class="mb-4">
+                <label for="notes" class="form-label h4">Note</label>
+                <textarea type="text" name="notes" id="notes" class="form-control @error('notes') is-invalid @elseif(old('notes', '')) is-valid @enderror" placeholder="Ex.: Immersi nella natura..." rows="5" required>{{ old('notes', $stop->notes) }}</textarea>
+                @error('notes')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @else 
+                    <div class="form-text">
+                        Aggiungi una nota
+                    </div>
+                @enderror
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="mb-4">
                 <label for="address-search" class="form-label h4">Indirizzo</label>
                 <div class="d-block card-data">
                     <div class="input-container">
                         <input id="search-address" name="address" autocomplete="off"
                                 value="{{ old('address', $stop->address) }}" type="text"
-                                class="form-control @error('address') is-invalid @enderror">
+                                class="form-control @error('address') is-invalid @enderror" placeholder="Ex.: Via Roma, Salerno 84132">
                         @error('address')
                                 <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
                         @else

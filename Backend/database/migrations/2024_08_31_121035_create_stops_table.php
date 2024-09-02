@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->string('image')->nullable();
-            $table->text('foods')->nullable();
+            $table->string('foods')->nullable();
+            $table->string('notes')->nullable();
             $table->string('address');
             $table->decimal('latitude', 11, 8);
             $table->decimal('longitude', 11, 8);

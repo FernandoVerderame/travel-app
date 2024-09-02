@@ -15,6 +15,7 @@ class Stop extends Model
         'title',
         'image',
         'foods',
+        'notes',
         'address',
         'latitude',
         'longitude',
