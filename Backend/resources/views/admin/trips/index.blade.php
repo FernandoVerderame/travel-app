@@ -13,8 +13,7 @@
     @forelse ($trips as $trip)
     <div class="card my-5">
         <div class="card-header d-flex align-items-center justify-content-between">
-        {{ $trip->title }}
-
+        <h3 class="m-0">{{ $trip->title }}</h3>    
         <a href="{{ route('admin.trips.show', $trip->slug) }}" class="btn btn-sm btn-primary">Info</a>
     </div>
     <div class="card-body">
@@ -26,17 +25,20 @@
             @endif
 
             <div class="col-9">
-                <h5 class="card-title mb-2">{{ $trip->title }}</h5>
-                <h6 class="card-subtitle fw-normal mb-1 text-body-secondary">
+                <details>{{ $trip->description }}</details>
+            </div>
+
+            <div class="col-3">
+                <h6 class="card-subtitle fw-normal mb-1 mt-2 text-body-secondary">
                     Partenza: {{ $trip->getFormattedDate('start_date', 'd-m-Y') }}
                 </h6>
-                <h6 class="card-subtitle fw-normal text-body-secondary">
+                <h6 class="card-subtitle fw-normal text-body-secondary mb-2">
                     Ritorno: {{ $trip->getFormattedDate('end_date', 'd-m-Y') }}
                 </h6>
             </div>
 
             <div class="col-12">
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-between">
                     <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i> Modifica</a>
 
                     <form action="{{ route('admin.trips.destroy', $trip->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-trip="{{ $trip->title }}">
