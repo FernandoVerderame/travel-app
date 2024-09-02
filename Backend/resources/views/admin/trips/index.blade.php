@@ -37,7 +37,7 @@
 
             <div class="col-12">
                 <div class="d-flex justify-content-end">
-                    <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-sm btn-warning text-white">Modifica</a>
+                    <a href="{{route('admin.trips.edit', $trip->slug)}}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i> Modifica</a>
 
                     <form action="{{ route('admin.trips.destroy', $trip->id) }}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal" data-trip="{{ $trip->title }}">
                         @csrf
