@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 50)->unique();
             $table->string('slug')->unique();
+            $table->string('color', 7)->nullable();
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->date('start_date');

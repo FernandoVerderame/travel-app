@@ -36,8 +36,7 @@ function initMap() {
 
     // Aggiungi i marker alla mappa utilizzando le locations passate dal Blade
     locations.forEach(location => {
-        const randomColor = getRandomColor();
-        const iconSvg = createIconSvg(randomColor);
+        const iconSvg = createIconSvg(location.color);
         const iconBlob = new Blob([iconSvg], { type: 'image/svg+xml' });
         const iconUrl = URL.createObjectURL(iconBlob);
 
@@ -46,7 +45,9 @@ function initMap() {
             position: { lat: parseFloat(location.latitude), lng: parseFloat(location.longitude) },
             map: map,
             title: 'Clicca per vedere i dettagli',
-            icon: iconUrl
+            icon: {
+                url: iconUrl
+            }
         });
 
         marker.addListener('click', function () {

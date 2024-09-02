@@ -64,7 +64,11 @@ class TripController extends Controller
             'end_date.unique' => 'Esiste già un viaggio con questa data di fine'
         ]);
 
+        $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+
         $data = $request->all();
+
+        $data['color'] = $color;
 
         $trip = new Trip();
 
@@ -149,6 +153,12 @@ class TripController extends Controller
         $data = $request->all();
 
         $data['slug'] = Str::slug($data['title']);
+
+        if (isset($data['color']) && !empty($data['color'])) {
+            $trip->color = $data['color'];
+        } else {
+            $data['color'] = $trip->color;
+        }
 
         // New file check
         if (Arr::exists($data, 'image')) {
