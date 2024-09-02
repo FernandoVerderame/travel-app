@@ -78,3 +78,24 @@ ul {
         height: 20px !important;
     }
 }
+
+.tooltip.custom-tooltip .tooltip-inner {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+
+}
+
+.btn-tool {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+        font-size: 10px;
+    }
+}

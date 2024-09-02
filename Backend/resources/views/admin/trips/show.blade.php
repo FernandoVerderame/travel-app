@@ -26,7 +26,7 @@
                                 <h6>Tappe:</h6>
                                 <div class="row">
                                     @foreach($day->stops as $stop)
-                                        <div class="col-12 col-md-6 col-lg-4 mb-3">
+                                        <div class="col-12 col-md-6 col-lg-3 mb-3">
                                             <div class="card">
                                                 @if($stop->image)
                                                     <img src="{{ Storage::url($stop->image) }}" alt="{{ $stop->title }}" class="card-img-top">
@@ -52,8 +52,10 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    <div class="stop-btns d-flex justify-content-between mt-3">
+                                                    <div class="stop-btns d-flex justify-content-between align-items-center mt-3">
                                                         <a href="{{ route('admin.stops.edit', ['trip' => $trip->slug, 'day' => $day->slug, 'stop' => $stop->slug]) }}" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></a>
+
+                                                        <button type="button" class=" border-0 btn-tool bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="{{ $stop->notes ?? 'Nessuna nota disponibile' }}"><i class="fa-solid fa-info text-white"></i></button>
 
                                                         <form action="{{ route('admin.stops.destroy', $stop->id) }}" method="POST" class="delete-form" data-type="stop" data-bs-toggle="modal" data-bs-target="#modal" data-stop="{{ $stop->title }}">
                                                             @csrf
@@ -91,4 +93,5 @@
 
 @section('scripts')
     @vite('resources/js/delete_confirmation.js')
+    @vite('resources/js/tooltip.js')
 @endsection

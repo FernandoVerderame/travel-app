@@ -15,7 +15,8 @@ export default defineConfig({
                 'resources/js/image_preview.js',
                 'resources/js/slug.js',
                 'resources/js/address.js',
-                'resources/js/map.js'
+                'resources/js/map.js',
+                'resources/js/tooltip.js'
             ],
             refresh: true,
         }),
