@@ -48,7 +48,10 @@ function initMap() {
                 <div class="custom-info-window">
                     <h3 class="fs-5 m-0">${location.title}</h3>
                     <p class="mb-1 mt-0">${formattedDate}</p>
+                    <figure class="location-thumb">
                     <img src="http://[::1]:5173/public/storage/${location.image}" alt="Location Image">
+                    </figure>
+                    <p class="mb-0">${location.notes}</p>
                 </div>
             `;
             infowindow.setContent(content);

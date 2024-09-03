@@ -14,7 +14,7 @@ class HomeController extends Controller
         $locations = DB::table('stops')
             ->join('days', 'stops.day_id', '=', 'days.id')
             ->join('trips', 'days.trip_id', '=', 'trips.id')
-            ->select('stops.latitude', 'stops.longitude', 'stops.title', 'stops.image', 'days.date', 'trips.color')
+            ->select('stops.latitude', 'stops.longitude', 'stops.title', 'stops.image', 'stops.notes', 'days.date', 'trips.color')
             ->get();
 
         return view('admin.home', compact('locations'));
