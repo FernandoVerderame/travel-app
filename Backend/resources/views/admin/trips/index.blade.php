@@ -31,10 +31,10 @@
             </div>
 
             <div class="col-3">
-                <h6 class="card-subtitle fw-normal mb-1 mt-2 text-body-secondary">
+                <h6 class="card-subtitle fw-normal mb-1 text-body-secondary">
                     Partenza: {{ $trip->getFormattedDate('start_date', 'd-m-Y') }}
                 </h6>
-                <h6 class="card-subtitle fw-normal text-body-secondary mb-2">
+                <h6 class="card-subtitle fw-normal text-body-secondary mb-3">
                     Ritorno: {{ $trip->getFormattedDate('end_date', 'd-m-Y') }}
                 </h6>
             </div>
