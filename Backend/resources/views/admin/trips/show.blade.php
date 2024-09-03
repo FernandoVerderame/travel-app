@@ -29,7 +29,7 @@
                                         <div class="col-12 col-md-6 col-lg-3 mb-3">
                                             <div class="card">
                                                 @if($stop->image)
-                                                    <img src="{{ Storage::url($stop->image) }}" alt="{{ $stop->title }}" class="card-img-top">
+                                                    <img src="{{ Vite::asset('public/storage/' . $stop->image) }}" alt="{{ $stop->title }}" class="card-img-top">
                                                 @else
                                                     <img src="https://via.placeholder.com/150" alt="placeholder-image" class="card-img-top">
                                                 @endif

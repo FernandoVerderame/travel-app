@@ -11,7 +11,7 @@ class Trip extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'color', 'description', 'start_date', 'end_date'];
+    protected $fillable = ['title', 'slug', 'image', 'color', 'description', 'start_date', 'end_date'];
 
     // Cast per date
     protected $casts = [
