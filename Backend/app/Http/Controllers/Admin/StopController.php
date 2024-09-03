@@ -157,6 +157,7 @@ class StopController extends Controller
 
         $stop->fill($data);
         $stop->slug = Str::slug($stop->title);
+        $stop->day_id = $day->id;
 
         // New file check
         if ($request->hasFile('image')) {
