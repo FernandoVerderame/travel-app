@@ -1,12 +1,3 @@
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
 function createIconSvg(color) {
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="36" height="36"><path fill="${color}" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>`;
 }
@@ -57,7 +48,7 @@ function initMap() {
                 <div class="custom-info-window">
                     <h3 class="fs-5 m-0">${location.title}</h3>
                     <p class="mb-1 mt-0">${formattedDate}</p>
-                    <img src="https://placehold.co/160x120" alt="Location Image">
+                    <img src="http://[::1]:5173/public/storage/${location.image}" alt="Location Image">
                 </div>
             `;
             infowindow.setContent(content);
