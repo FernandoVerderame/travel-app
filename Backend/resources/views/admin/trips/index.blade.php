@@ -20,7 +20,9 @@
         <div class="row">
             @if($trip->image)
                 <div class="col-3">
-                    <img src="{{ Vite::asset('public/storage/' . $trip->image) }}" class="img-fluid" alt="{{ $trip->title }}">
+                    <figure class="thumb">
+                        <img src="{{ Vite::asset('public/storage/' . $trip->image) }}" alt="{{ $trip->title }}">
+                    </figure>
                 </div>
             @endif
 
