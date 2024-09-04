@@ -10,6 +10,10 @@
 
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
+    <style>
+        body {visibility: hidden}
+    </style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -30,7 +34,7 @@
 </head>
 
 <body class="bg-light">
-    <div id="app">
+    <div id="app-home">
 
         @include('includes.layouts.navbar')
 
