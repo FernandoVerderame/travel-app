@@ -33,8 +33,8 @@
     @vite(['resources/js/app.js'])
 </head>
 
-<body class="bg-light">
-    <div id="app-login">
+<body class="{{ $bodyClass ?? 'bg-light' }}">
+    <div id="app">
 
         @include('includes.layouts.navbar')
 
