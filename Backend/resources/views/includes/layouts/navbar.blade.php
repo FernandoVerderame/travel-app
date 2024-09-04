@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             <div class="logo_laravel">
-                {{ config('app.name') }}
+                <img src="{{ Vite::asset('resources/images/logo.png') }}" alt="logo-travel-app">
             </div>
             {{-- config('app.name', 'Laravel') --}}
         </a>
@@ -13,7 +13,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav me-auto">
+            <ul class="ms-4 navbar-nav me-auto d-flex gap-2">
                 <li class="nav-item">
                     <a class="nav-link @if(Route::is('guest.home')) active @endif" href="{{url('/') }}">{{ __('Home') }}</a>
                 </li>
