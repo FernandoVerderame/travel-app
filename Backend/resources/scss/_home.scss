@@ -1,8 +1,5 @@
 body {
     visibility: visible;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
 }
 
 #app-home {
@@ -40,5 +37,6 @@ body {
     p {
         position: absolute;
         bottom: 70px;
+        font-weight: 700;
     }
 }

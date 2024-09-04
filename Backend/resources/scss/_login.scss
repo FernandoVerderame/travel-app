@@ -1,0 +1,60 @@
+body {
+    visibility: visible;
+}
+
+#app-login {
+    height: 100vh;
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.login-sec {
+    height: calc(100vh - 50px);
+    display: flex;
+    align-items: center;
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        background: none;
+
+        .card-header {
+            color: white;
+            font-weight: 600;
+
+            .img-logo {
+                filter: invert(100%);
+            }
+        }
+
+        .form-column {
+            border-bottom-left-radius: 10px;
+            transform: translate(12px, 0px);
+        }
+
+        .bg-login-form {
+            height: 450px;
+            background-image: url('../images/memories.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-bottom-right-radius: 9px;
+
+            display: flex;
+            justify-content: center;
+            align-items: end;
+        }
+
+        .phrase {
+            color: white;
+            font-size: 17px;
+            margin-bottom: 22px;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+}

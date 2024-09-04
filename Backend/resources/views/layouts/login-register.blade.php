@@ -24,9 +24,6 @@
     <style>
         body {
             visibility: hidden;
-            font-family: "Montserrat", sans-serif;
-            font-optical-sizing: auto;
-            font-style: normal;
         }
     </style>
 
@@ -37,11 +34,11 @@
 </head>
 
 <body class="bg-light">
-    <div id="app-home">
+    <div id="app-login">
 
         @include('includes.layouts.navbar')
 
-        <main class="container py-4">
+        <main class="container">
 
             {{-- Alerts --}}
             @include('includes.alerts')

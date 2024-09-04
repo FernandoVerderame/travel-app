@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import '_home';
+@import '_login';
 
 body {
     visibility: visible;
@@ -8,10 +9,8 @@ body {
     font-style: normal;
 }
 
-.logo_laravel {
-    img {
-        width: 45px;
-    }
+.img-logo {
+    width: 45px;
 }
 
 th {
