@@ -119,6 +119,23 @@
 
         <div class="col-6">
             <div class="mb-4">
+                <label for="category_id" class="form-label h4">Categoria</label>
+                <select name="category_id" id="category_id" class="form-select @error('category_id') is-invalid @elseif(old('category_id', '')) is-valid @enderror">
+                    <option value="">Nessuna</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @if(old('category_id', $stop->category?->id) == $category->id) selected @endif>{{ $category->label }}</option>
+                    @endforeach
+                </select>
+                @error('category_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="mb-4">
                 <label for="rating" class="form-label h4">Votazione</label>
                 <div id="star-rating" class="star-rating">
                     <input type="radio" name="rating" id="rating-5" value="5" {{ old('rating', $stop->rating) == 5 ? 'checked' : '' }}>

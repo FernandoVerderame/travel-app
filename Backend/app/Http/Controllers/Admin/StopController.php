@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Day;
 use App\Models\Stop;
 use App\Models\Trip;
@@ -30,10 +31,11 @@ class StopController extends Controller
     {
         $trip = Trip::where('slug', $trip)->firstOrFail();
         $day = Day::where('slug', $day)->firstOrFail();
+        $categories = Category::all();
 
         $stop = new Stop();
 
-        return view('admin.stops.create', compact('stop', 'trip', 'day'));
+        return view('admin.stops.create', compact('stop', 'trip', 'day', 'categories'));
     }
 
     /**
@@ -53,7 +55,8 @@ class StopController extends Controller
             'address' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'day_id' => 'required|exists:days,id'
+            'day_id' => 'required|exists:days,id',
+            'category_id' => 'nullable|exists:categories,id'
         ], [
             'title.required' => 'Il titolo è obbligatorio',
             'title.min' => 'Il titolo deve essere di almeno :min caratteri',
@@ -71,7 +74,8 @@ class StopController extends Controller
             'longitude.required' => 'La longitudine è obbligatoria',
             'longitude.numeric' => 'La longitudine deve essere un numero valido',
             'day_id.required' => 'Il giorno è obbligatorio',
-            'day_id.exists' => 'Il giorno selezionato non esiste'
+            'day_id.exists' => 'Il giorno selezionato non esiste',
+            'category_id.exists' => 'Categoria non valida o non esistente'
         ]);
 
         $data = $request->all();
