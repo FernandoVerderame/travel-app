@@ -26,4 +26,9 @@ class Stop extends Model
     {
         return $this->belongsTo(Day::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

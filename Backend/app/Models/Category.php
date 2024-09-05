@@ -10,4 +10,9 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = ['label', 'icon'];
+
+    public function stops()
+    {
+        return $this->hasMany(Stop::class);
+    }
 }
