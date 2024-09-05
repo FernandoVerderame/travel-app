@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Fernando',
             'email' => 'fernando@gmail.it',
         ]);
+
+        $this->call(CategorySeeder::class);
     }
 }
