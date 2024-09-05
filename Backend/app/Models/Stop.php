@@ -11,7 +11,6 @@ class Stop extends Model
     use HasFactory;
 
     protected $fillable = [
-        'day_id',
         'title',
         'image',
         'foods',
@@ -19,7 +18,9 @@ class Stop extends Model
         'address',
         'latitude',
         'longitude',
-        'rating'
+        'rating',
+        'day_id',
+        'category_id'
     ];
 
     public function day()
