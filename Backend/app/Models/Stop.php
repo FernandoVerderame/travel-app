@@ -19,6 +19,7 @@ class Stop extends Model
         'latitude',
         'longitude',
         'rating',
+        'expected_duration',
         'day_id',
         'category_id'
     ];

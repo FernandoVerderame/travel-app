@@ -117,7 +117,19 @@
             </div>
         </div>
 
-        <div class="col-6">
+        <div class="col-3">
+            <div class="mb-4">
+                <label for="expected_duration" class="form-label h4">Orario</label>
+                <input type="time" name="expected_duration" id="expected_duration" class="form-control @error('expected_duration') is-invalid @enderror" value="{{ old('expected_duration', $stop->expected_duration) }}">
+                @error('expected_duration')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+        </div>
+
+        <div class="col-3">
             <div class="mb-4">
                 <label for="category_id" class="form-label h4">Categoria</label>
                 <select name="category_id" id="category_id" class="form-select @error('category_id') is-invalid @elseif(old('category_id', '')) is-valid @enderror">

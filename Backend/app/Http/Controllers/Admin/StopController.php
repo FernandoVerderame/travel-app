@@ -55,6 +55,7 @@ class StopController extends Controller
             'address' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
+            'expected_duration' => 'nullable|date_format:H:i',
             'day_id' => 'required|exists:days,id',
             'category_id' => 'nullable|exists:categories,id'
         ], [
@@ -73,6 +74,7 @@ class StopController extends Controller
             'latitude.numeric' => 'La latitudine deve essere un numero valido',
             'longitude.required' => 'La longitudine è obbligatoria',
             'longitude.numeric' => 'La longitudine deve essere un numero valido',
+            'expected_duration.date_format' => 'L\'orario deve essere nel formato HH:MM',
             'day_id.required' => 'Il giorno è obbligatorio',
             'day_id.exists' => 'Il giorno selezionato non esiste',
             'category_id.exists' => 'Categoria non valida o non esistente'
@@ -138,6 +140,7 @@ class StopController extends Controller
             'address' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
+            'expected_duration' => 'nullable|date_format:H:i',
             'day_id' => 'required|exists:days,id',
             'category_id' => 'nullable|exists:categories,id'
         ], [
@@ -156,6 +159,7 @@ class StopController extends Controller
             'latitude.numeric' => 'La latitudine deve essere un numero valido',
             'longitude.required' => 'La longitudine è obbligatoria',
             'longitude.numeric' => 'La longitudine deve essere un numero valido',
+            'expected_duration.date_format' => 'L\'orario deve essere nel formato HH:MM',
             'day_id.required' => 'Il giorno è obbligatorio',
             'day_id.exists' => 'Il giorno selezionato non esiste',
             'category_id.exists' => 'Categoria selezionata non valida'

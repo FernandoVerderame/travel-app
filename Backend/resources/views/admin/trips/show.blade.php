@@ -48,6 +48,13 @@
                                                 </figure>
                                                 @endif
                                                 <div class="card-body">
+                                                    @if ($stop->expected_duration)
+                                                        <div class="d-flex justify-content-center">
+                                                            <span class="badge rounded-pill text-bg-info">{{ $stop->expected_duration }}</span>
+                                                        </div>
+                                                        @else
+                                                        <p class="m-0 text-center">Ora da stabilire</p>
+                                                    @endif
                                                     <ul class="list-unstyled m-0">
                                                         <li>
                                                             <strong>{{ $stop->title }}</strong>
