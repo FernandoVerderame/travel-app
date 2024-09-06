@@ -29,11 +29,23 @@
                                         <div class="col-12 col-md-6 col-lg-3 mb-3">
                                             <div class="card">
                                                 @if($stop->image)
-                                                <figure class="thumb">
+                                                <figure class="thumb m-0">
                                                     <img src="{{ Vite::asset('public/storage/' . $stop->image) }}" alt="{{ $stop->title }}" class="card-img-top">
+                                                    @if ($stop->category !== null)
+                                                        <span class="badge text-bg-danger">
+                                                            <i class="fa solid {{ $stop->category->icon }}"></i>
+                                                        </span>
+                                                    @endif
                                                 </figure>
                                                 @else
+                                                <figure class="thumb m-0">
                                                     <img src="https://via.placeholder.com/150" alt="placeholder-image" class="card-img-top">
+                                                    @if ($stop->category !== null)
+                                                    <span class="badge text-bg-danger">
+                                                        <i class="fa solid {{ $stop->category->icon }}"></i>
+                                                    </span>
+                                                    @endif
+                                                </figure>
                                                 @endif
                                                 <div class="card-body">
                                                     <ul class="list-unstyled m-0">
