@@ -29,12 +29,16 @@ class StopController extends Controller
      */
     public function create($trip, $day)
     {
+        // Recupera il viaggio e il giorno tramite gli slug
         $trip = Trip::where('slug', $trip)->firstOrFail();
         $day = Day::where('slug', $day)->firstOrFail();
+
+        // Recupera tutte le categorie
         $categories = Category::all();
 
-        $stop = new Stop();
+        $stop = new Stop(); // Crea una nuova istanza di Stop
 
+        // Passa i dati alla vista di creazione
         return view('admin.stops.create', compact('stop', 'trip', 'day', 'categories'));
     }
 
@@ -43,10 +47,11 @@ class StopController extends Controller
      */
     public function store(Request $request, $trip, $day)
     {
-        // Recupera il viaggio e il giorno
+        // Recupera il viaggio e il giorno tramite gli slug
         $trip = Trip::where('slug', $trip)->firstOrFail();
         $day = Day::where('slug', $day)->where('trip_id', $trip->id)->firstOrFail();
 
+        // Validazione dei dati della tappa
         $request->validate([
             'title' => 'required|string|min:5|max:50|unique:stops',
             'image' => 'nullable|image|mimes:png,jpg,jpeg',
@@ -59,6 +64,7 @@ class StopController extends Controller
             'day_id' => 'required|exists:days,id',
             'category_id' => 'nullable|exists:categories,id'
         ], [
+            // Messaggi di errore personalizzati per la validazione
             'title.required' => 'Il titolo è obbligatorio',
             'title.min' => 'Il titolo deve essere di almeno :min caratteri',
             'title.max' => 'Il titolo deve essere di un massimo di :max caratteri',
@@ -80,26 +86,27 @@ class StopController extends Controller
             'category_id.exists' => 'Categoria non valida o non esistente'
         ]);
 
-        $data = $request->all();
+        $data = $request->all(); // Ottiene tutti i dati dalla richiesta
 
-        $stop = new Stop();
+        $stop = new Stop(); // Crea una nuova istanza di Stop
 
-        $stop->fill($data);
-        $stop->day_id = $day->id;
+        $stop->fill($data); // Riempie l'istanza con i dati della richiesta
+        $stop->day_id = $day->id; // Assegna l'ID del giorno
 
-        $stop->slug = Str::slug($stop->title);
+        $stop->slug = Str::slug($stop->title); // Genera uno slug per la tappa
 
-        // New file check
+        // Controlla se è stato caricato un file immagine
         if (Arr::exists($data, 'image')) {
-            $extension = $data['image']->extension();
+            $extension = $data['image']->extension(); // Ottiene l'estensione dell'immagine
 
-            // Save URL
+            // Salva l'immagine e ottiene l'URL
             $img_url = Storage::putFileAs('stop_images', $data['image'], "$stop->slug.$extension");
             $stop->image = $img_url;
         }
 
-        $stop->save();
+        $stop->save(); // Salva la tappa nel database
 
+        // Reindirizza alla vista del viaggio con un messaggio di successo
         return to_route('admin.trips.show', $trip->slug)->with('type', 'success')->with('message', 'Nuovo tappa creata con successo!');
     }
 
@@ -116,11 +123,15 @@ class StopController extends Controller
      */
     public function edit($trip, $day, $stop)
     {
+        // Recupera il viaggio, il giorno e la tappa tramite gli slug
         $trip = Trip::where('slug', $trip)->firstOrFail();
         $day = Day::where('slug', $day)->firstOrFail();
         $stop = Stop::where('slug', $stop)->firstOrFail();
+
+        // Recupera tutte le categorie
         $categories = Category::all();
 
+        // Passa i dati alla vista di modifica
         return view('admin.stops.edit', compact('trip', 'day', 'stop', 'categories'));
     }
 
@@ -129,9 +140,11 @@ class StopController extends Controller
      */
     public function update(Request $request, $trip, $day, Stop $stop)
     {
+        // Recupera il viaggio e il giorno tramite gli slug
         $trip = Trip::where('slug', $trip)->firstOrFail();
         $day = Day::where('slug', $day)->where('trip_id', $trip->id)->firstOrFail();
 
+        // Validazione dei dati della tappa
         $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:50', Rule::unique('stops')->ignore($stop->id)],
             'image' => 'nullable|image|mimes:png,jpg,jpeg',
@@ -144,6 +157,7 @@ class StopController extends Controller
             'day_id' => 'required|exists:days,id',
             'category_id' => 'nullable|exists:categories,id'
         ], [
+            // Messaggi di errore personalizzati per la validazione
             'title.required' => 'Il titolo è obbligatorio',
             'title.min' => 'Il titolo deve essere di almeno :min caratteri',
             'title.max' => 'Il titolo deve essere di un massimo di :max caratteri',
@@ -165,30 +179,32 @@ class StopController extends Controller
             'category_id.exists' => 'Categoria selezionata non valida'
         ]);
 
-        $data = $request->all();
+        $data = $request->all(); // Ottiene tutti i dati dalla richiesta
 
-        // Assicurati che day_id sia mantenuto se non modificato
+        // Mantiene l'ID del giorno se non modificato
         if (!isset($data['day_id'])) {
             $data['day_id'] = $stop->day_id;
         }
 
-        $stop->fill($data);
-        $stop->slug = Str::slug($stop->title);
-        $stop->day_id = $day->id;
+        $stop->fill($data); // Riempie l'istanza con i dati della richiesta
+        $stop->slug = Str::slug($stop->title); // Aggiorna lo slug
+        $stop->day_id = $day->id; // Aggiorna l'ID del giorno
 
-        // New file check
+        // Controlla se è stato caricato un file immagine
         if ($request->hasFile('image')) {
+            // Elimina l'immagine esistente se presente
             if ($stop->image) {
                 Storage::delete($stop->image);
             }
 
-            $extension = $data['image']->extension();
-            $img_url = Storage::putFileAs('stop_images', $data['image'], "$stop->slug.$extension");
+            $extension = $data['image']->extension(); // Ottiene l'estensione dell'immagine
+            $img_url = Storage::putFileAs('stop_images', $data['image'], "$stop->slug.$extension"); // Salva la nuova immagine
             $stop->image = $img_url;
         }
 
-        $stop->save();
+        $stop->save(); // Salva le modifiche nel database
 
+        // Reindirizza alla vista del viaggio con un messaggio di successo
         return to_route('admin.trips.show', $trip->slug)->with('type', 'success')->with('message', 'Tappa aggiornata con successo!');
     }
 
@@ -197,13 +213,17 @@ class StopController extends Controller
      */
     public function destroy(Stop $stop)
     {
-        // Recupera il Trip associato tramite il Day
+        // Recupera il viaggio associato tramite il giorno
         $trip = $stop->day->trip;
 
-        if ($stop->image) Storage::delete($stop->image);
+        // Elimina l'immagine della tappa se esiste
+        if ($stop->image) {
+            Storage::delete($stop->image);
+        }
 
-        $stop->delete();
+        $stop->delete(); // Elimina la tappa dal database
 
+        // Reindirizza alla vista del viaggio con un messaggio di successo
         return to_route('admin.trips.show', $trip->slug)->with('type', 'danger')->with('message', "Tappa {$stop->title} eliminata con successo!");
     }
 }

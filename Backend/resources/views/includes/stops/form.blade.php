@@ -1,17 +1,21 @@
 @if($stop->exists)
+    {{-- Se la tappa esiste (modifica), invia i dati al route di aggiornamento con metodo PUT --}}
     <form action="{{ route('admin.stops.update', [$trip->slug, $day->slug, $stop->id]) }}" method="POST" enctype="multipart/form-data" novalidate>
         @method('PUT')
 @else 
+    {{-- Se la tappa non esiste (creazione), invia i dati al route di salvataggio con metodo POST --}}
     <form action="{{ route('admin.stops.store', [$trip->slug, $day->slug]) }}" method="POST" enctype="multipart/form-data" novalidate>
 @endif
 
+    {{-- Inserisce il token CSRF per la protezione contro gli attacchi CSRF --}}
     @csrf
 
+    {{-- Campi nascosti per passare l'ID del viaggio e del giorno --}}
     <input type="hidden" name="trip_id" value="{{ $trip->id }}">
     <input type="hidden" name="day_id" value="{{ $day->id }}">
 
-        <div class="row">
-
+    <div class="row">
+        {{-- Campo per il titolo della tappa --}}
         <div class="col-6">
             <div class="mb-4">
                 <label for="title" class="form-label h4">Titolo</label>
@@ -28,15 +32,18 @@
             </div>
         </div>
 
+        {{-- Campo per l'immagine della tappa --}}
         <div class="col-5">
             <div class="mb-4">
                 <label for="image" class="form-label h4">Immagine</label>
 
+                {{-- Se esiste un'immagine precedente, mostra un pulsante per cambiarla --}}
                 <div @class(['input-group', 'd-none' => !$stop->image]) id="previous-image-field">
                     <button class="btn btn-outline-secondary" type="button" id="change-image-button">Cambia immagine</button>
                     <input type="text" class="form-control" value="{{ old('image', $stop->image) }}" disabled>
                 </div>
 
+                {{-- Input file per caricare una nuova immagine, visibile solo se non esiste un'immagine precedente --}}
                 <input type="file" name="image" id="image" class="form-control @if($stop->image) d-none @endif @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror" placeholder="Ex.: https:://...">
                 
                 @error('image')
@@ -51,6 +58,7 @@
             </div>
         </div>
 
+        {{-- Anteprima dell'immagine --}}
         <div class="col-1  d-flex align-items-center">
             <div>
                 <img src="{{ old('image', $stop->image) 
@@ -59,6 +67,7 @@
             </div>
         </div>
 
+        {{-- Campo per i piatti tipici --}}
         <div class="col-6">
             <div class="mb-4">
                 <label for="foods" class="form-label h4">Piatti Tipici</label>
@@ -75,6 +84,7 @@
             </div>
         </div>
 
+        {{-- Campo per le note --}}
         <div class="col-6">
             <div class="mb-4">
                 <label for="notes" class="form-label h4">Note</label>
@@ -91,6 +101,7 @@
             </div>
         </div>
 
+        {{-- Campo per l'indirizzo con suggerimenti per l'autocompletamento --}}
         <div class="col-6">
             <div class="mb-4">
                 <label for="address-search" class="form-label h4">Indirizzo</label>
@@ -103,12 +114,13 @@
                                 <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
                         @else
                         <div class="form-text">
-                            Aggiungi la lista dei piatti tipici
+                            Aggiungi l'indirizzo della tappa
                         </div>
                         @enderror
                         <ul id="suggestions" class="suggestions-list"></ul>
                     </div>
                     <span id="address-error" class="text-danger error-message"></span>
+                    {{-- Campi nascosti per latitudine e longitudine --}}
                     <input type="hidden" name="latitude" id="latitude"
                             value="{{ old('latitude', $stop->latitude) }}">
                     <input type="hidden" name="longitude" id="longitude"
@@ -117,6 +129,7 @@
             </div>
         </div>
 
+        {{-- Campo per la durata prevista --}}
         <div class="col-3">
             <div class="mb-4">
                 <label for="expected_duration" class="form-label h4">Orario</label>
@@ -129,6 +142,7 @@
             </div>
         </div>
 
+        {{-- Campo per la categoria --}}
         <div class="col-3">
             <div class="mb-4">
                 <label for="category_id" class="form-label h4">Categoria</label>
@@ -146,10 +160,12 @@
             </div>
         </div>
 
+        {{-- Campo per la votazione --}}
         <div class="col-6">
             <div class="mb-4">
                 <label for="rating" class="form-label h4">Votazione</label>
                 <div id="star-rating" class="star-rating">
+                    {{-- Opzioni di valutazione da 1 a 5 stelle --}}
                     <input type="radio" name="rating" id="rating-5" value="5" {{ old('rating', $stop->rating) == 5 ? 'checked' : '' }}>
                     <label for="rating-5" title="5 stars"><i class="fa-solid fa-star fs-5"></i></label>
                 
@@ -177,18 +193,18 @@
             </div>
         </div>
 
+    </div>
+
+    {{-- Footer del modulo con i pulsanti di navigazione e salvataggio --}}
+    <footer class="d-flex justify-content-between align-items-center pt-4 border-top">
+        <a href="{{ route('admin.trips.show', $trip->slug) }}" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left me-2"></i>Indietro</a>
+
+        <div>
+            {{-- Pulsante per ripristinare i valori del modulo --}}
+            <button type="reset" class="btn btn-primary me-2"><i class="fa-solid fa-eraser me-2"></i>Reset</button>
+            {{-- Pulsante per inviare il modulo --}}
+            <button type="submit" class="btn btn-success" id="save-btn"><i class="fa-solid fa-floppy-disk me-2"></i>Salva</button>
         </div>
+    </footer>
 
-        <footer class="d-flex justify-content-between align-items-center pt-4 border-top">
-            <a href="{{ route('admin.trips.show', $trip->slug) }}" class="btn btn-secondary"><i class="fa-solid fa-arrow-rotate-left me-2"></i>Indietro</a>
-
-
-
-    
-            <div>
-                <button type="reset" class="btn btn-primary me-2"><i class="fa-solid fa-eraser me-2"></i>Reset</button>
-                <button type="submit" class="btn btn-success" id="save-btn"><i class="fa-solid fa-floppy-disk me-2"></i>Salva</button>
-            </div>
-        </footer>
-
-    </form>
+</form>
