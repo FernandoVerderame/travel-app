@@ -18,6 +18,19 @@
                     <div class="card-header">
                         <h4 class="form-label">Giorno: {{ $day->number }}</h4>
                         <h5 class="fs-6">Data: {{ old('days.' . $day->id . '.date', $day->date->format('d-m-Y')) }}</h5>
+
+                        <!-- Previsioni meteo -->
+                        @if($day->weather)
+                            <div class="weather-info">
+                                <h6>Previsioni meteo:</h6>
+                                <p>Temperatura: {{ $day->weather['temperature'] }}°C</p>
+                                <p>Descrizione: {{ ucfirst($day->weather['description']) }}</p>
+                                <img src="http://www.weatherbit.io/static/img/icons/{{ $day->weather['icon'] }}.png" alt="Icona Meteo">
+
+                            </div>
+                        @else
+                            <p>Nessuna informazione meteo disponibile.</p>
+                        @endif
                     </div>
   
                     <div class="card-body">

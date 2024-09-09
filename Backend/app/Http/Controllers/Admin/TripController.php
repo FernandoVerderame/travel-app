@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use GuzzleHttp\Client;
 
 class TripController extends Controller
 {
@@ -102,9 +103,20 @@ class TripController extends Controller
 
         if (!$trip) abort(404);
 
+        // Ottieni i giorni del viaggio
         $days = $trip->days->map(function ($day) {
             $day->date = Carbon::parse($day->date);
             $day->slug = Str::slug('Giorno ' . $day->number);
+
+            // Recupera la prima tappa del giorno
+            $firstStop = $day->stops->first();
+            if ($firstStop) {
+                // Ottieni le previsioni meteo basate sulla posizione della prima tappa
+                $day->weather = $this->getWeather($firstStop->latitude, $firstStop->longitude);
+            } else {
+                $day->weather = null; // Nessuna previsione meteo se non ci sono tappe
+            }
+
             return $day;
         });
 
@@ -202,5 +214,25 @@ class TripController extends Controller
         $trip->delete();
 
         return to_route('admin.trips.index')->with('type', 'danger')->with('type', 'message', "{$trip->title} eliminato con successo!");
+    }
+
+    /**
+     * Funzione per ottenere le previsioni meteo.
+     */
+    private function getWeather($latitude, $longitude)
+    {
+        $client = new Client();
+        $apiKey = env('WEATHERBIT_API_KEY');
+
+        // Chiamata all'API di OpenWeather
+        $response = $client->get("http://api.weatherbit.io/v2.0/current?lat={$latitude}&lon={$longitude}&key={$apiKey}&lang=it");
+
+        $data = json_decode($response->getBody(), true);
+
+        return [
+            'temperature' => $data['data'][0]['temp'],
+            'description' => $data['data'][0]['weather']['description'],
+            'icon' => $data['data'][0]['weather']['icon']
+        ];
     }
 }
