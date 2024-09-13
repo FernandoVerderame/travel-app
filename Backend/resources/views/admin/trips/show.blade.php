@@ -19,19 +19,21 @@
             @foreach($days as $day)
                 <div class="card mb-4">
                     {{-- Mostra il numero e la data del giorno --}}
-                    <div class="card-header">
-                        <h4 class="form-label">Giorno: {{ $day->number }}</h4>
-                        <h5 class="fs-6">Data: {{ old('days.' . $day->id . '.date', $day->date->format('d-m-Y')) }}</h5>
+                    <div class="card-header d-flex justify-content-between">
+                        <div>
+                            <h4 class="form-label">Giorno: {{ $day->number }}</h4>
+                            <h5 class="fs-6">Data: {{ old('days.' . $day->id . '.date', $day->date->format('d-m-Y')) }}</h5>
+                        </div>
 
                         <!-- Sezione previsioni meteo -->
                         @if($day->weather)
                             <div class="weather-info">
                                 <h6>Previsioni meteo:</h6>
                                 {{-- Mostra la temperatura e una descrizione meteo --}}
-                                <p>Temperatura: {{ $day->weather['temperature'] }}°C</p>
-                                <p>Descrizione: {{ ucfirst($day->weather['description']) }}</p>
-                                {{-- Icona meteo --}}
-                                <img src="http://www.weatherbit.io/static/img/icons/{{ $day->weather['icon'] }}.png" alt="Icona Meteo">
+                                <p class="m-0">Temperatura: <strong>{{ $day->weather['temperature'] }}°C</strong></p>
+                                <p class="m-0">Descrizione: <strong>{{ ucfirst($day->weather['description']) }}</strong></p>
+                                {{-- Icona meteo
+                                <img src="http://www.weatherbit.io/static/img/icons/{{ $day->weather['icon'] }}.png" alt="Icona Meteo"> --}}
                             </div>
                         @else
                             {{-- Messaggio se non ci sono informazioni meteo --}}
