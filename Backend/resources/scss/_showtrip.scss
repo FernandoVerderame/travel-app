@@ -1,11 +1,37 @@
+.trip-header {
+    text-align: center;
+    padding: 20px 0;
+    background: linear-gradient(135deg, #007bff, #00c9ff);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.trip-header h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .timeline {
     position: relative;
     padding: 20px 0;
-    margin-top: 20px;
 }
 
 .timeline-day {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
+}
+
+.timeline-header {
+    h4 {
+        color: #007bff;
+        font-weight: bold;
+        font-size: 1.75rem;
+        margin-bottom: 10px;
+    }
 }
 
 .timeline-item {

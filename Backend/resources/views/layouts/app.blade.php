@@ -34,7 +34,7 @@
 
         @include('includes.layouts.navbar')
 
-        <main class="container py-4">
+        <main class="container main-cont py-4">
 
             {{-- Alerts --}}
             @include('includes.alerts')

@@ -4,7 +4,7 @@
 
 @section('content')
 
-<header class="mt-3">
+<header class="mt-3 trip-header">
   {{-- Mostra il titolo del viaggio --}}
   <h1>{{$trip->title}}</h1>
 </header>
@@ -13,7 +13,7 @@
   <div class="col-12">
     <div class="">
         {{-- Sezione dell'itinerario del viaggio --}}
-        <h3>Itinerario</h3>
+        <h3 class="m-0 mt-4">Itinerario</h3>
         <div id="days-container">
 
             <div class="timeline">
