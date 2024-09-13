@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import '_home';
+@import '_index';
 @import '_login';
 @import '_showtrip.scss';
 
@@ -17,8 +18,8 @@ body {
         padding: 30px;
         border-radius: 15px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        margin-top: 30px;
-        margin-bottom: 30px;
+        margin-top: 50px;
+        margin-bottom: 50px;
     }
 }
 
