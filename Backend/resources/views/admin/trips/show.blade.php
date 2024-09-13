@@ -58,9 +58,9 @@
                                 {{-- Contenuto della tappa --}}
                                 <div class="timeline-content">
                                     <h5>{{ $stop->title }}</h5>
-                                    <p><strong>Orario:</strong> {{ $stop->expected_duration ? $stop->expected_duration : 'Da stabilire' }}</p>
-                                    <p><strong>Luogo:</strong> {{ $stop->address }}</p>
-                                    <p><strong>Piatti tipici:</strong> {{ $stop->foods }}</p>
+                                    <p><i class="fa-solid fa-clock me-2"></i><strong>Orario:</strong> {{ $stop->expected_duration ? $stop->expected_duration : 'Da stabilire' }}</p>
+                                    <p><i class="fa-solid fa-map-marker-alt me-2"></i><strong>Luogo:</strong> {{ $stop->address }}</p>
+                                    <p><i class="fa-solid fa-utensils me-2"></i><strong>Piatti tipici:</strong> {{ $stop->foods }}</p>
                                     <p>
                                         {{-- Mostra la valutazione della tappa con le stelle --}}
                                         <div class="star-rating">
