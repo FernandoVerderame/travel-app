@@ -16,7 +16,8 @@ export default defineConfig({
                 'resources/js/slug.js',
                 'resources/js/address.js',
                 'resources/js/map.js',
-                'resources/js/tooltip.js'
+                'resources/js/tooltip.js',
+                'resources/js/description_modal.js'
             ],
             refresh: true,
         }),

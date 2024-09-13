@@ -30,7 +30,10 @@
                     {{-- Corpo della card con la descrizione e le date --}}
                     <div class="card-body">
                         {{-- Descrizione del viaggio --}}
-                        <p class="card-text text-truncate pb-2">{{ $trip->description }}</p>
+                        {{-- Bottone per aprire la modale --}}
+                        <button class="btn btn-info w-100 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#descriptionModal" data-title="{{ $trip->title }}" data-description="{{ $trip->description }}">
+                            <i class="fa-solid fa-chevron-down me-2"></i> Leggi di più
+                        </button>
                         <p class="mb-1"><strong>Partenza:</strong> {{ $trip->getFormattedDate('start_date', 'd-m-Y') }}</p>
                         <p><strong>Ritorno:</strong> {{ $trip->getFormattedDate('end_date', 'd-m-Y') }}</p>
                     </div>
@@ -67,4 +70,5 @@
 @section('scripts')
     {{-- Script per la conferma di cancellazione --}}
     @vite('resources/js/delete_confirmation.js')
+    @vite('resources/js/description_modal.js')
 @endsection

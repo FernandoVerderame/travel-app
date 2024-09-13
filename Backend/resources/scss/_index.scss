@@ -5,8 +5,24 @@ header.index-header {
 }
 
 .card-body {
-    .text-truncate {
-        max-height: 3em;
+    .btn-info {
         border-bottom: 1px solid black;
+    }
+}
+
+.descriptionModal {
+    .modal-dialog {
+        max-width: 90%;
+        margin: 0;
+    }
+
+    .modal-content {
+        width: 100%;
+    }
+
+    #modal-description-body {
+        overflow-y: auto;
+        overflow-x: hidden;
+        word-wrap: break-word;
     }
 }

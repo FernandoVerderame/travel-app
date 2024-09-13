@@ -45,7 +45,8 @@
     </div>
 
     {{-- Modal --}}
-    @include('includes.modal')
+    @include('includes.delete-modal')
+    @include('includes.description-modal')
 
     @yield('scripts')
 </body>
