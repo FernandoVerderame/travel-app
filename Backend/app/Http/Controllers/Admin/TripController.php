@@ -224,19 +224,27 @@ class TripController extends Controller
      */
     private function getWeather($latitude, $longitude)
     {
-        $client = new Client(); // Crea una nuova istanza del client HTTP
-        $apiKey = env('WEATHERBIT_API_KEY'); // Ottiene la chiave API dalle variabili d'ambiente
+        try {
+            $client = new Client(); // Crea una nuova istanza del client HTTP
+            $apiKey = env('WEATHERBIT_API_KEY'); // Ottiene la chiave API dalle variabili d'ambiente
+            $response = $client->get("http://api.weatherbit.io/v2.0/current?lat={$latitude}&lon={$longitude}&key={$apiKey}&lang=it");
+            $data = json_decode($response->getBody(), true); // Decodifica la risposta JSON
 
-        // Chiamata all'API di weatherbit per ottenere le previsioni meteo
-        $response = $client->get("http://api.weatherbit.io/v2.0/current?lat={$latitude}&lon={$longitude}&key={$apiKey}&lang=it");
-
-        $data = json_decode($response->getBody(), true); // Decodifica la risposta JSON
-
-        // Restituisce le informazioni meteo
-        return [
-            'temperature' => $data['data'][0]['temp'],
-            'description' => $data['data'][0]['weather']['description'],
-            'icon' => $data['data'][0]['weather']['icon']
-        ];
+            return [
+                'temperature' => $data['data'][0]['temp'],
+                'description' => $data['data'][0]['weather']['description'],
+                'icon' => $data['data'][0]['weather']['icon']
+            ];
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            if ($e->getCode() == 429) {
+                // Gestisce l'errore di "Too Many Requests"
+                return [
+                    'temperature' => 'N/A',
+                    'description' => 'Info non disponibili',
+                    'icon' => 'default_icon.png'
+                ];
+            }
+            throw $e; // Rilancia l'eccezione se non è un 429
+        }
     }
 }
