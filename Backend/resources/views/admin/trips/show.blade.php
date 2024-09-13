@@ -56,36 +56,72 @@
                                 </div>
             
                                 {{-- Contenuto della tappa --}}
-                                <div class="timeline-content">
-                                    @if ($stop->category)
-                                        <div class="category-logo mb-2" title="{{$stop->category->label}}">
-                                            <i class="fa-solid {{$stop->category->icon}}"></i>
+                                <div class="timeline-content row">
+                                    <div class="col-4">
+                                        @if ($stop->category)
+                                            <div class="category-logo mb-2" title="{{$stop->category->label}}">
+                                                <i class="fa-solid {{$stop->category->icon}}"></i>
+                                            </div>
+                                        @endif
+                                        <h5>{{ $stop->title }}</h5>
+                                        <p><i class="fa-solid fa-clock me-2"></i><strong>Orario:</strong> {{ $stop->expected_duration ? $stop->expected_duration : 'Da stabilire' }}</p>
+                                        <p><i class="fa-solid fa-map-marker-alt me-2"></i><strong>Luogo:</strong> {{ $stop->address }}</p>
+                                        <p><i class="fa-solid fa-utensils me-2"></i><strong>Piatti tipici:</strong> {{ $stop->foods }}</p>
+                                        {{-- Mostra la valutazione della tappa con le stelle --}}
+                                        <div class="star-rating">
+                                            @for ($i = 5; $i >= 1; $i--)
+                                                <i class="fa-solid fa-star fs-5 {{ $i <= $stop->rating ? 'filled' : 'empty' }}" title="{{ $i }} star"></i>
+                                            @endfor
                                         </div>
-                                    @endif
-                                    <h5>{{ $stop->title }}</h5>
-                                    <p><i class="fa-solid fa-clock me-2"></i><strong>Orario:</strong> {{ $stop->expected_duration ? $stop->expected_duration : 'Da stabilire' }}</p>
-                                    <p><i class="fa-solid fa-map-marker-alt me-2"></i><strong>Luogo:</strong> {{ $stop->address }}</p>
-                                    <p><i class="fa-solid fa-utensils me-2"></i><strong>Piatti tipici:</strong> {{ $stop->foods }}</p>
-                                    {{-- Mostra la valutazione della tappa con le stelle --}}
-                                    <div class="star-rating">
-                                        @for ($i = 5; $i >= 1; $i--)
-                                            <i class="fa-solid fa-star fs-5 {{ $i <= $stop->rating ? 'filled' : 'empty' }}" title="{{ $i }} star"></i>
-                                        @endfor
-                                    </div>
 
-                                    {{-- Bottoni per la modifica e l'eliminazione --}}
-                                    <div class="action-buttons">
-                                        <a href="{{ route('admin.stops.edit', ['trip' => $trip->slug, 'day' => $day->slug, 'stop' => $stop->slug]) }}" class="btn btn-warning me-2">
+                                        {{-- Bottoni per la modifica e l'eliminazione --}}
+                                        <div class="action-buttons">
+                                            <a href="{{ route('admin.stops.edit', ['trip' => $trip->slug, 'day' => $day->slug, 'stop' => $stop->slug]) }}" class="btn btn-warning me-2">
                                             <i class="fa-solid fa-edit"></i> Modifica
-                                        </a>
-                                        <form action="{{ route('admin.stops.destroy', $stop->id) }}" method="POST" class="delete-form d-inline-block" data-type="stop" data-bs-toggle="modal" data-bs-target="#modal" data-stop="{{ $stop->title }}">
+                                            </a>
+                                            <form action="{{ route('admin.stops.destroy', $stop->id) }}" method="POST" class="delete-form d-inline-block" data-type="stop" data-bs-toggle="modal" data-bs-target="#modal" data-stop="{{ $stop->title }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="fa-solid fa-trash-alt"></i> Elimina
-                                            </button>
-                                        </form>
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa-solid fa-trash-alt"></i> Elimina
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
+
+                                    <div class="col-3">
+                                        <div class="notes-section">
+                                            <h6>Note:</h6>
+                                            <div class="post-it">
+                                                {{ $stop->notes ? $stop->notes : 'Nessuna nota disponibile' }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-5">
+                                        <div id="carouselExample" class="carousel slide">
+                                            <div class="carousel-inner">
+                                              <div class="carousel-item active">
+                                                <img src="..." class="d-block w-100" alt="...">
+                                              </div>
+                                              <div class="carousel-item">
+                                                <img src="..." class="d-block w-100" alt="...">
+                                              </div>
+                                              <div class="carousel-item">
+                                                <img src="..." class="d-block w-100" alt="...">
+                                              </div>
+                                            </div>
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                              <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                              <span class="visually-hidden">Next</span>
+                                            </button>
+                                          </div>
+                                    </div>
+                                
                                 </div>
                             </div>
                         @endforeach
