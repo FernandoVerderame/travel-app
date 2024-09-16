@@ -10,19 +10,12 @@ header.index-header {
     }
 }
 
-.descriptionModal {
-    .modal-dialog {
-        max-width: 90%;
-        margin: 0;
-    }
-
-    .modal-content {
-        width: 100%;
-    }
-
+#descriptionModal {
     #modal-description-body {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
         overflow-y: auto;
         overflow-x: hidden;
-        word-wrap: break-word;
     }
 }
