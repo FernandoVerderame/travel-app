@@ -59,7 +59,7 @@
             
                                 {{-- Contenuto della tappa --}}
                                 <div class="timeline-content row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6 col-lg-4 px-lg-2">
                                         <h5>{{ $stop->title }}</h5>
                                         <p><i class="fa-solid fa-clock me-2"></i><strong>Orario:</strong> {{ $stop->expected_duration ? $stop->expected_duration : 'Da stabilire' }}</p>
                                         <p><i class="fa-solid fa-map-marker-alt me-2"></i><strong>Luogo:</strong> {{ $stop->address }}</p>
@@ -86,7 +86,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="d-none d-lg-block col-lg-4">
                                         <div class="notes-section">
                                             <h6>Note:</h6>
                                             <div class="post-it">
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-5">
+                                    <div class="d-none d-md-block col-md-6 col-lg-4 m-auto">
                                         @if ($stop->image)
                                         <div class="thumb-stop">
                                             <img src="{{ Vite::asset('public/storage/' . $stop->image) }}" class="img-stop" alt="{{ $stop->title }}">
