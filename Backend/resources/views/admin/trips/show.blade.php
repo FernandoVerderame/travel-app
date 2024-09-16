@@ -125,6 +125,13 @@
                                 </div>
                             </div>
                         @endforeach
+
+                        <!-- Bottone per aggiungere una nuova tappa -->
+                        <div class="mt-3">
+                            <a href="{{ route('admin.stops.create', ['trip' => $trip->slug, 'day' => $day->slug]) }}" class="btn btn-sm btn-success">
+                                <i class="fa-solid fa-plus"></i> Aggiungi Tappa
+                            </a>
+                        </div>
                     </div>
                 @endforeach
             </div>
