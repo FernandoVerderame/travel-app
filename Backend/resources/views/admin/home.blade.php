@@ -5,10 +5,8 @@
 @section('content')
 <div class="container">
     {{-- Titolo della dashboard --}}
-    <h2 class="fs-4 text-secondary">
-        {{ __('Dashboard') }}
-    </h2>
-    <div class="row justify-content-center">
+    <h2 class="fs-3 text-secondary text-center">Viaggi</h2>
+    <div class="">
         <div class="col">
             <div class="card p-2">
                 {{-- Sezione che contiene la mappa, con altezza e larghezza definite --}}

@@ -70,7 +70,7 @@
         {{-- Campo per i piatti tipici --}}
         <div class="col-6">
             <div class="mb-4">
-                <label for="foods" class="form-label h4">Piatti Tipici</label>
+                <label for="foods" class="form-label h4">Cibo</label>
                 <textarea type="text" name="foods" id="foods" class="form-control @error('foods') is-invalid @elseif(old('foods', '')) is-valid @enderror" placeholder="Ex.: Carbonara, parmigiana..." rows="5" required>{{ old('foods', $stop->foods) }}</textarea>
                 @error('foods')
                     <div class="invalid-feedback">

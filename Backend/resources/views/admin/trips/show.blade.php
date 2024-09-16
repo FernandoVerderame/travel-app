@@ -48,8 +48,10 @@
             
                                 {{-- Icona della tappa --}}
                                 <div class="timeline-icon">
-                                    @if ($stop->image)
-                                        <img src="{{ Vite::asset('public/storage/' . $stop->image) }}" alt="{{ $stop->title }}" class="rounded-circle">
+                                    @if ($stop->category)
+                                        <div class="category-logo" title="{{ $stop->category->label }}">
+                                            <i class="fa-solid {{ $stop->category->icon }}"></i>
+                                        </div>
                                     @else
                                         <img src="https://via.placeholder.com/50" alt="placeholder-image" class="rounded-circle">
                                     @endif
@@ -58,15 +60,10 @@
                                 {{-- Contenuto della tappa --}}
                                 <div class="timeline-content row">
                                     <div class="col-md-4">
-                                        @if ($stop->category)
-                                            <div class="category-logo mb-2" title="{{$stop->category->label}}">
-                                                <i class="fa-solid {{$stop->category->icon}}"></i>
-                                            </div>
-                                        @endif
                                         <h5>{{ $stop->title }}</h5>
                                         <p><i class="fa-solid fa-clock me-2"></i><strong>Orario:</strong> {{ $stop->expected_duration ? $stop->expected_duration : 'Da stabilire' }}</p>
                                         <p><i class="fa-solid fa-map-marker-alt me-2"></i><strong>Luogo:</strong> {{ $stop->address }}</p>
-                                        <p><i class="fa-solid fa-utensils me-2"></i><strong>Piatti tipici:</strong> {{ $stop->foods }}</p>
+                                        <p><i class="fa-solid fa-utensils me-2"></i><strong>Cibo:</strong> {{ $stop->foods }}</p>
                                         {{-- Mostra la valutazione della tappa con le stelle --}}
                                         <div class="star-rating">
                                             @for ($i = 5; $i >= 1; $i--)
@@ -99,27 +96,13 @@
                                     </div>
 
                                     <div class="col-md-5">
-                                        <div id="carouselExample" class="carousel slide">
-                                            <div class="carousel-inner">
-                                              <div class="carousel-item active">
-                                                <img src="..." class="d-block w-100" alt="...">
-                                              </div>
-                                              <div class="carousel-item">
-                                                <img src="..." class="d-block w-100" alt="...">
-                                              </div>
-                                              <div class="carousel-item">
-                                                <img src="..." class="d-block w-100" alt="...">
-                                              </div>
-                                            </div>
-                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                              <span class="visually-hidden">Previous</span>
-                                            </button>
-                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                              <span class="visually-hidden">Next</span>
-                                            </button>
-                                          </div>
+                                        @if ($stop->image)
+                                        <div class="thumb-stop">
+                                            <img src="{{ Vite::asset('public/storage/' . $stop->image) }}" class="img-stop" alt="{{ $stop->title }}">
+                                        </div>
+                                        @else
+                                        <p>Nessuna immagine disponibile.</p>
+                                        @endif
                                     </div>
                                 
                                 </div>
