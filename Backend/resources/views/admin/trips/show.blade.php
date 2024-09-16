@@ -57,7 +57,7 @@
             
                                 {{-- Contenuto della tappa --}}
                                 <div class="timeline-content row">
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                         @if ($stop->category)
                                             <div class="category-logo mb-2" title="{{$stop->category->label}}">
                                                 <i class="fa-solid {{$stop->category->icon}}"></i>
@@ -89,7 +89,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-3">
+                                    <div class="col-md-3">
                                         <div class="notes-section">
                                             <h6>Note:</h6>
                                             <div class="post-it">
@@ -98,7 +98,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-5">
+                                    <div class="col-md-5">
                                         <div id="carouselExample" class="carousel slide">
                                             <div class="carousel-inner">
                                               <div class="carousel-item active">
