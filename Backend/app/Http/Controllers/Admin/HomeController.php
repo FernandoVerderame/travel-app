@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -15,16 +16,20 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
-        // Recupera tutte le tappe dal database
-        // Esegue una query per ottenere i dati delle tappe, unendo le tabelle 'stops', 'days' e 'trips'
+        // Recupera l'ID dell'utente autenticato
+        $userId = Auth::id();
+
+        // Recupera solo le tappe associate all'utente autenticato
         $locations = DB::table('stops')
-            // Unisce la tabella 'stops' con la tabella 'days' usando la chiave esterna 'day_id'
+            // Unisce la tabella 'stops' con la tabella 'days'
             ->join('days', 'stops.day_id', '=', 'days.id')
-            // Unisce la tabella 'days' con la tabella 'trips' usando la chiave esterna 'trip_id'
+            // Unisce la tabella 'days' con la tabella 'trips'
             ->join('trips', 'days.trip_id', '=', 'trips.id')
-            // Seleziona le colonne desiderate da ciascuna tabella
+            // Filtra i viaggi per l'utente autenticato
+            ->where('trips.user_id', '=', $userId)
+            // Seleziona le colonne desiderate
             ->select('stops.latitude', 'stops.longitude', 'stops.title', 'stops.image', 'stops.notes', 'days.date', 'trips.color')
-            // Recupera tutti i risultati della query
+            // Recupera i risultati
             ->get();
 
         // Passa i dati recuperati alla vista 'admin.home'
